@@ -13,6 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'School App',
       home: const HomePage(),
+      //For the future
+      //news: const NewsPage(),
     );
   }
 }
