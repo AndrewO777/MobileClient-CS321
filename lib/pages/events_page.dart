@@ -47,7 +47,7 @@ class EventsPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "events & Announcements",
+                          "Events",
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.black54,
