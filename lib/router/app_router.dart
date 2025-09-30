@@ -4,6 +4,7 @@ import '../pages/home_page.dart';
 import '../pages/news_page.dart';
 import '../pages/events_page.dart';
 import '../widgets/main_scaffold.dart';
+import '../pages/about_page.dart';
 
 
 class AppRouter {
@@ -35,6 +36,11 @@ class AppRouter {
             pageBuilder: (context, state) => const NoTransitionPage(
               child: EventsPage(),
             ),
+          ),
+          GoRoute(
+            path: '/about',
+            name: 'about',
+            builder: (context, state) => const AboutPage(),
           ),
         ],
       ),

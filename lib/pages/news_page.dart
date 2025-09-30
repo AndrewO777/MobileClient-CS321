@@ -32,7 +32,7 @@ class NewsPage extends StatelessWidget {
       "title": "The Renaissance Men are coming...",
       "date": "2025-09-10",
       "content":
-      "The Renaissance Men will perform at the school auditorium. Don’t miss this fun event!"
+      "The Renaissance Men will perform at the school auditorium. Don't miss this fun event!"
     },
   ];
 
@@ -43,70 +43,69 @@ class NewsPage extends StatelessWidget {
     sortedNews.sort((a, b) => DateTime.parse(b["date"])
         .compareTo(DateTime.parse(a["date"])));
 
-    return Scaffold(
-      body: Column(
-        children: [
-          // Wrap header in SafeArea (so camera and info does not cover header)
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              color: Colors.deepPurple.shade100,
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 28,
-                    backgroundImage: AssetImage("assets/school_logo.png"),
+    return Column(
+      children: [
+        // Header widget that stays at top
+        SafeArea(
+          bottom: false,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.deepPurple.shade100,
+            child: Row(
+              children: [
+                const CircleAvatar(
+                  radius: 28,
+                  backgroundImage: AssetImage("assets/school_logo.png"),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "NERD Tech School",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "News & Announcements",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "NERD Tech School",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "News & Announcements",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ],
-                    ),
+                )
+              ],
+            ),
+          ),
+        ),
+
+        // News list
+        Expanded(
+          child: ListView.builder(
+            itemCount: sortedNews.length,
+            itemBuilder: (context, index) {
+              final item = sortedNews[index];
+              final date = DateTime.parse(item["date"]);
+              return ExpansionTile(
+                leading: const Icon(Icons.campaign, color: Colors.deepPurple),
+                title: Text(item["title"]),
+                subtitle: Text("${date.month}/${date.day}/${date.year}"),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(item["content"]),
                   )
                 ],
-              ),
-            ),
+              );
+            },
           ),
-
-          // News list
-          Expanded(
-            child: ListView.builder(
-              itemCount: sortedNews.length,
-              itemBuilder: (context, index) {
-                final item = sortedNews[index];
-                final date = DateTime.parse(item["date"]);
-                return ExpansionTile(
-                  leading: const Icon(Icons.campaign, color: Colors.deepPurple),
-                  title: Text(item["title"]),
-                  subtitle: Text("${date.month}/${date.day}/${date.year}"),
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text(item["content"]),
-                    )
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

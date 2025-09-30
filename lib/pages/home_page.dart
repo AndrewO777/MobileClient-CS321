@@ -24,10 +24,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NERD Tech School'),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
