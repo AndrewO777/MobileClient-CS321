@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/News.dart';
+import '../models/SchoolNews.dart';
 import '../services/news_service.dart';
 
 class NewsPage extends StatefulWidget {
@@ -20,7 +20,7 @@ class _NewsPageState extends State<NewsPage> {
         title: const Text('School News'),
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: FutureBuilder<List<News>>(
+      body: FutureBuilder<List<SchoolNews>>(
         future: _newsService.getNews(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

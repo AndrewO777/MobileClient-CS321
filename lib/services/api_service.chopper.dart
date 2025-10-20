@@ -77,7 +77,7 @@ final class _$ApiService extends ApiService {
 
   @override
   Future<Response<Map<String, dynamic>>> getNewsItem(int id) {
-    final Uri $url = Uri.parse('/News/${id}');
+    final Uri $url = Uri.parse('News/${id}');
     final Request $request = Request(
       'GET',
       $url,

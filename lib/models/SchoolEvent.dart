@@ -1,27 +1,30 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'Campus.dart';
 
-part 'Event.g.dart';
+part 'SchoolEvent.g.dart';
 
 @JsonSerializable()
-class Event {
+class SchoolEvent {
   int id;
   String title;
   String description;
   DateTime start;
   DateTime end;
   int campusId;
+  Campus campus;
   String location;
 
-  Event({
+  SchoolEvent({
     required this.id,
     required this.title,
     required this.description,
     required this.start,
     required this.end,
     required this.campusId,
+    required this.campus,
     required this.location,
   });
 
-  factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
-  Map<String, dynamic> toJson() => _$EventToJson(this);
+  factory SchoolEvent.fromJson(Map<String, dynamic> json) => _$SchoolEventFromJson(json);
+  Map<String, dynamic> toJson() => _$SchoolEventToJson(this);
 }

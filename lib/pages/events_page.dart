@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/Event.dart';
+import '../models/SchoolEvent.dart';
 import '../services/event_service.dart';
 
 class EventsPage extends StatefulWidget {
@@ -56,7 +56,7 @@ class _EventsPageState extends State<EventsPage> {
         ),
 
         Expanded(
-          child: FutureBuilder<List<Event>>(
+          child: FutureBuilder<List<SchoolEvent>>(
             future: _eventService.getEvents(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {

@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        schoolInfo.name,
+                        schoolInfo.Name,
                         style: const TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        schoolInfo.email,
+                        schoolInfo.Email,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white70,
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        schoolInfo.phoneNumber,
+                        schoolInfo.PhoneNumber,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white70,
