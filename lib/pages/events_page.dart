@@ -162,7 +162,7 @@ class _EventsPageState extends State<EventsPage> {
                                       CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          event.title,
+                                          event.title ?? 'Untitled Event',
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium
@@ -172,7 +172,7 @@ class _EventsPageState extends State<EventsPage> {
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          event.description,
+                                          event.description ?? 'No description available',
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -187,7 +187,7 @@ class _EventsPageState extends State<EventsPage> {
                               const SizedBox(height: 12),
 
                               // Location
-                              if (event.location.isNotEmpty)
+                              if (event.location != null && event.location!.isNotEmpty)
                                 Row(
                                   children: [
                                     const Icon(Icons.location_on,
@@ -195,7 +195,7 @@ class _EventsPageState extends State<EventsPage> {
                                     const SizedBox(width: 4),
                                     Expanded(
                                       child: Text(
-                                        event.location,
+                                        event.location!,
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey[600],

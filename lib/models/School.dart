@@ -9,28 +9,32 @@ part 'School.g.dart';
 @JsonSerializable()
 class School {
   int id;
-  String Name;
-  List<Campus> Campuses;
-  String Email;
-  String Website;
-  String PhoneNumber;
-  List<Announcement> SchoolAnnouncements;
-  List<SchoolEvent> SchoolEvents;
+  String? name;
+  @JsonKey(defaultValue: [])
+  List<Campus> campuses;
+  String email;
+  String website;
+  String phoneNumber;
+  @JsonKey(defaultValue: [])
+  List<Announcement> schoolAnnouncements;
+  @JsonKey(defaultValue: [])
+  List<SchoolEvent> schoolEvents;
+  @JsonKey(defaultValue: [])
   List<SchoolNews> schoolNews;
 
   School({
     required this.id,
-    required this.Name,
-    this.Email = '',
-    this.Website = '',
-    this.PhoneNumber = '',
-    List<Campus>? Campuses,
-    List<Announcement>? SchoolAnnouncements,
+    this.name,
+    this.email = '',
+    this.website = '',
+    this.phoneNumber = '',
+    List<Campus>? campuses,
+    List<Announcement>? schoolAnnouncements,
     List<SchoolEvent>? schoolEvents,
     List<SchoolNews>? schoolNews,
-  })  : this.Campuses = Campuses ?? [],
-        this.SchoolAnnouncements = SchoolAnnouncements ?? [],
-        this.SchoolEvents = schoolEvents ?? [],
+  })  : this.campuses = campuses ?? [],
+        this.schoolAnnouncements = schoolAnnouncements ?? [],
+        this.schoolEvents = schoolEvents ?? [],
         this.schoolNews = schoolNews ?? [];
 
   factory School.fromJson(Map<String, dynamic> json) => _$SchoolFromJson(json);

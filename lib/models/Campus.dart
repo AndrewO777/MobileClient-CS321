@@ -7,19 +7,19 @@ part 'Campus.g.dart';
 @JsonSerializable()
 class Campus{
   int id;
-  String Name;
-  int AddressId;
-  Address address;
-  int SchoolId;
-  School school;
+  String? name;
+  int addressId;
+  Address? address;
+  int schoolId;
+  School? school;
 
   Campus({
     required this.id,
-    required this.Name,
-    required this.AddressId,
-    required this.address,
-    required this.SchoolId,
-    required this.school,
+    this.name,
+    required this.addressId,
+    this.address,
+    required this.schoolId,
+    this.school,
   });
 
   factory Campus.fromJson(Map<String, dynamic> json) => _$CampusFromJson(json);

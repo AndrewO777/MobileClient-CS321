@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
     return {
       'school': results[0] as School,
-      'announcements': results[1] as List<Announcement>
+      'announcements': results[1] as Announcement
     };
   }
 
@@ -48,8 +48,8 @@ class _HomePageState extends State<HomePage> {
             return const Center(child: Text('No data available.'));
           }
 
-          final schoolInfo = snapshot.data!['schoolInfo'] as School;
-          final announcements = snapshot.data!['announcements'] as List<Announcement>;
+          final schoolInfo = snapshot.data!['school'] as School;
+          final announcement = snapshot.data!['announcements'] as Announcement?;
 
           return SingleChildScrollView(
             child: Column(
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        schoolInfo.Name,
+                        schoolInfo.name ?? 'School Name',
                         style: const TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        schoolInfo.Email,
+                        schoolInfo.email,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white70,
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        schoolInfo.PhoneNumber,
+                        schoolInfo.phoneNumber,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white70,
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      if (announcements.isEmpty)
+                      if (announcement == null)
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.all(32),
@@ -170,53 +170,45 @@ class _HomePageState extends State<HomePage> {
                           ),
                         )
                       else
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: announcements.length,
-                          itemBuilder: (context, index) {
-                            final announcement = announcements[index];
-                            return Card(
-                              margin: const EdgeInsets.only(bottom: 12),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                        Card(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            announcement.title,
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
+                                    Expanded(
+                                      child: Text(
+                                        announcement.title ?? 'No Title',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      DateFormat('MMM dd, yyyy').format(announcement.datePosted),
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey[600],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      announcement.message,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        height: 1.4,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            );
-                          },
+                                const SizedBox(height: 8),
+                                Text(
+                                  DateFormat('MMM dd, yyyy').format(announcement.datePosted),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  announcement.message ?? 'No message available',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                     ],
                   ),

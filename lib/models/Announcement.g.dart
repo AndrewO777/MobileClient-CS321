@@ -8,8 +8,8 @@ part of 'Announcement.dart';
 
 Announcement _$AnnouncementFromJson(Map<String, dynamic> json) => Announcement(
       id: (json['id'] as num).toInt(),
-      title: json['title'] as String,
-      message: json['message'] as String,
+      title: json['title'] as String?,
+      message: json['message'] as String?,
       datePosted: DateTime.parse(json['datePosted'] as String),
       schoolId: (json['schoolId'] as num).toInt(),
     );

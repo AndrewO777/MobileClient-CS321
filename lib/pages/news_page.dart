@@ -133,7 +133,7 @@ class _NewsPageState extends State<NewsPage> {
                         final news = sortedNews[index];
                         return ExpansionTile(
                           leading: const Icon(Icons.campaign, color: Colors.deepPurple),
-                          title: Text(news.headline),
+                          title: Text(news.headline ?? 'No Headline'),
                           subtitle: Text(
                             DateFormat('MMM dd, yyyy').format(news.datePublished),
                           ),
@@ -144,7 +144,7 @@ class _NewsPageState extends State<NewsPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    news.content,
+                                    news.content ?? 'No content available',
                                     style: const TextStyle(height: 1.4),
                                   ),
                                   const SizedBox(height: 8),
@@ -154,7 +154,7 @@ class _NewsPageState extends State<NewsPage> {
                                       Icon(Icons.person, size: 16, color: Colors.grey[600]),
                                       const SizedBox(width: 4),
                                       Text(
-                                        news.author,
+                                        news.author ?? 'Unknown',
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey[600],

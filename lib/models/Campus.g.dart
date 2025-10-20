@@ -8,18 +8,22 @@ part of 'Campus.dart';
 
 Campus _$CampusFromJson(Map<String, dynamic> json) => Campus(
       id: (json['id'] as num).toInt(),
-      Name: json['Name'] as String,
-      AddressId: (json['AddressId'] as num).toInt(),
-      address: Address.fromJson(json['address'] as Map<String, dynamic>),
-      SchoolId: (json['SchoolId'] as num).toInt(),
-      school: School.fromJson(json['school'] as Map<String, dynamic>),
+      name: json['name'] as String?,
+      addressId: (json['addressId'] as num).toInt(),
+      address: json['address'] == null
+          ? null
+          : Address.fromJson(json['address'] as Map<String, dynamic>),
+      schoolId: (json['schoolId'] as num).toInt(),
+      school: json['school'] == null
+          ? null
+          : School.fromJson(json['school'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CampusToJson(Campus instance) => <String, dynamic>{
       'id': instance.id,
-      'Name': instance.Name,
-      'AddressId': instance.AddressId,
+      'name': instance.name,
+      'addressId': instance.addressId,
       'address': instance.address,
-      'SchoolId': instance.SchoolId,
+      'schoolId': instance.schoolId,
       'school': instance.school,
     };

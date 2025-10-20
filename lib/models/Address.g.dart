@@ -13,11 +13,11 @@ Address _$AddressFromJson(Map<String, dynamic> json) => Address(
           ? null
           : GpsCoordinate.fromJson(
               json['gpsCoordinates'] as Map<String, dynamic>),
-      streetAddress1: json['streetAddress1'] as String,
+      streetAddress1: json['streetAddress1'] as String?,
       streetAddress2: json['streetAddress2'] as String?,
-      city: json['city'] as String,
-      state: json['state'] as String,
-      postalCode: json['postalCode'] as String,
+      city: json['city'] as String?,
+      state: json['state'] as String?,
+      postalCode: json['postalCode'] as String?,
       country: json['country'] as String? ?? 'USA',
     );
 

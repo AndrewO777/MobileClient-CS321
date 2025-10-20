@@ -8,11 +8,11 @@ class Address {
   int id;
   int? gpsCoordinateId;
   GpsCoordinate? gpsCoordinates;
-  String streetAddress1;
+  String? streetAddress1;
   String? streetAddress2;
-  String city;
-  String state;
-  String postalCode;
+  String? city;
+  String? state;
+  String? postalCode;
   @JsonKey(defaultValue: 'USA')
   String country;
 
@@ -20,11 +20,11 @@ class Address {
     required this.id,
     this.gpsCoordinateId,
     this.gpsCoordinates,
-    required this.streetAddress1,
+    this.streetAddress1,
     this.streetAddress2,
-    required this.city,
-    required this.state,
-    required this.postalCode,
+    this.city,
+    this.state,
+    this.postalCode,
     this.country = 'USA',
   });
 

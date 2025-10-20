@@ -6,21 +6,21 @@ part 'SchoolNews.g.dart';
 @JsonSerializable()
 class SchoolNews {
   int id;
-  String headline;
-  String content;
+  String? headline;
+  String? content;
   DateTime datePublished;
-  String author;
+  String? author;
   int schoolId;
-  School school;
+  School? school;
 
   SchoolNews({
     required this.id,
-    required this.headline,
-    required this.content,
+    this.headline,
+    this.content,
     required this.datePublished,
-    required this.author,
+    this.author,
     required this.schoolId,
-    required this.school,
+    this.school,
   });
 
   factory SchoolNews.fromJson(Map<String, dynamic> json) => _$SchoolNewsFromJson(json);
