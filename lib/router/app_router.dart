@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../pages/cafeteria_page.dart';
 import '../pages/home_page.dart';
 import '../pages/news_page.dart';
 import '../pages/events_page.dart';
@@ -35,6 +36,13 @@ class AppRouter {
             name: 'events',
             pageBuilder: (context, state) => const NoTransitionPage(
               child: EventsPage(),
+            ),
+          ),
+          GoRoute(
+            path: '/cafeteria',
+            name: 'cafeteria',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: CafeteriaPage(),
             ),
           ),
           GoRoute(

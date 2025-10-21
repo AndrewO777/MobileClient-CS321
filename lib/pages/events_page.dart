@@ -34,17 +34,10 @@ class _EventsPageState extends State<EventsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        "NERD Tech School",
+                        "Events",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "Events",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black54,
                         ),
                       ),
                     ],

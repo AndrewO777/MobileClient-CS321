@@ -101,6 +101,15 @@ class MainScaffold extends StatelessWidget {
                 context.go('/events');
               },
             ),
+            ListTile(
+              leading:
+              const Icon(Icons.restaurant_menu, color: Color(0xFF6A5ACD)),
+              title: const Text('Cafeteria'),
+              onTap: () {
+                Navigator.pop(context);
+                context.go('/cafeteria');
+              },
+            ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.info_outline, color: Color(0xFF6A5ACD)),
