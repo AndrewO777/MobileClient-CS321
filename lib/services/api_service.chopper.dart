@@ -88,7 +88,7 @@ final class _$ApiService extends ApiService {
 
   @override
   Future<Response<List<Map<String, dynamic>>>> getEvents() {
-    final Uri $url = Uri.parse('SchoolEvent');
+    final Uri $url = Uri.parse('Events');
     final Request $request = Request(
       'GET',
       $url,
@@ -100,7 +100,30 @@ final class _$ApiService extends ApiService {
 
   @override
   Future<Response<Map<String, dynamic>>> getEvent(int id) {
-    final Uri $url = Uri.parse('SchoolEvent/${id}');
+    final Uri $url = Uri.parse('Events/${id}');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<Map<String, dynamic>, Map<String, dynamic>>($request);
+  }
+
+  @override
+  Future<Response<List<Map<String, dynamic>>>> getCafeteriaMenus() {
+    final Uri $url = Uri.parse('Cafeteria');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client
+        .send<List<Map<String, dynamic>>, Map<String, dynamic>>($request);
+  }
+
+  @override
+  Future<Response<Map<String, dynamic>>> getCafeteriaMenu(int id) {
+    final Uri $url = Uri.parse('Cafeteria/${id}');
     final Request $request = Request(
       'GET',
       $url,

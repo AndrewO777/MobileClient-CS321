@@ -16,10 +16,6 @@ class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('School News'),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
       body: FutureBuilder<List<SchoolNews>>(
         future: _newsService.getNews(),
         builder: (context, snapshot) {
@@ -102,17 +98,10 @@ class _NewsPageState extends State<NewsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
                               Text(
-                                "NERD Tech School",
+                                "News & Announcements",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "News & Announcements",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
                                 ),
                               ),
                             ],

@@ -27,19 +27,29 @@ abstract class ApiService extends ChopperService{
   Future<Response<Map<String, dynamic>>> getNewsItem(@Path('id') int id);
 
   //Events Endpoints
-  @GET(path: 'SchoolEvent')
+  @GET(path: 'Events')
   Future<Response<List<Map<String, dynamic>>>> getEvents();
 
-  @GET(path: 'SchoolEvent/{id}')
+  @GET(path: 'Events/{id}')
   Future<Response<Map<String, dynamic>>> getEvent(@Path('id') int id);
+
+  //Cafeteria Endpoints
+  @GET(path: 'Cafeteria')
+  Future<Response<List<Map<String, dynamic>>>> getCafeteriaMenus();
+
+  @GET(path: 'Cafeteria/{id}')
+  Future<Response<Map<String, dynamic>>> getCafeteriaMenu(@Path('id') int id);
 
   static ApiService create() {
     final client = ChopperClient(
-      baseUrl: Uri.parse('http://10.0.2.2:5153/v1'),
+      baseUrl: Uri.parse('http://10.0.2.2:8080/v1'),
       services: [
         _$ApiService(),
       ],
       converter: const JsonConverter(),
+      interceptors: [
+        HttpLoggingInterceptor(),
+      ],
     );
     return _$ApiService(client);
   }

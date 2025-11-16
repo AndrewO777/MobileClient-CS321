@@ -24,20 +24,16 @@ School _$SchoolFromJson(Map<String, dynamic> json) => School(
               ?.map((e) => SchoolEvent.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      schoolNews: (json['schoolNews'] as List<dynamic>?)
-              ?.map((e) => SchoolNews.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
     );
 
 Map<String, dynamic> _$SchoolToJson(School instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'campuses': instance.campuses,
+      'campuses': instance.campuses.map((e) => e.toJson()).toList(),
       'email': instance.email,
       'website': instance.website,
       'phoneNumber': instance.phoneNumber,
-      'schoolAnnouncements': instance.schoolAnnouncements,
-      'schoolEvents': instance.schoolEvents,
-      'schoolNews': instance.schoolNews,
+      'schoolAnnouncements':
+          instance.schoolAnnouncements.map((e) => e.toJson()).toList(),
+      'schoolEvents': instance.schoolEvents.map((e) => e.toJson()).toList(),
     };

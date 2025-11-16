@@ -6,7 +6,7 @@ import 'SchoolNews.dart';
 
 part 'School.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class School {
   int id;
   String? name;
@@ -19,7 +19,9 @@ class School {
   List<Announcement> schoolAnnouncements;
   @JsonKey(defaultValue: [])
   List<SchoolEvent> schoolEvents;
-  @JsonKey(defaultValue: [])
+
+  // Ignore schoolNews to avoid circular reference issues
+  @JsonKey(ignore: true)
   List<SchoolNews> schoolNews;
 
   School({
@@ -37,6 +39,12 @@ class School {
         this.schoolEvents = schoolEvents ?? [],
         this.schoolNews = schoolNews ?? [];
 
-  factory School.fromJson(Map<String, dynamic> json) => _$SchoolFromJson(json);
+  factory School.fromJson(Map<String, dynamic> json) {
+    // Create a copy and remove schoolNews to avoid circular reference parsing
+    final jsonCopy = Map<String, dynamic>.from(json);
+    jsonCopy.remove('schoolNews');
+    return _$SchoolFromJson(jsonCopy);
+  }
+
   Map<String, dynamic> toJson() => _$SchoolToJson(this);
 }

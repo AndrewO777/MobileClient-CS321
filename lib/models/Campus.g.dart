@@ -14,16 +14,12 @@ Campus _$CampusFromJson(Map<String, dynamic> json) => Campus(
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
       schoolId: (json['schoolId'] as num).toInt(),
-      school: json['school'] == null
-          ? null
-          : School.fromJson(json['school'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CampusToJson(Campus instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'addressId': instance.addressId,
-      'address': instance.address,
+      'address': instance.address?.toJson(),
       'schoolId': instance.schoolId,
-      'school': instance.school,
     };
