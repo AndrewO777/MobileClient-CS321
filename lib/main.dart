@@ -1,8 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'router/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final dir = await getApplicationDocumentsDirectory();
+  final dbFile = File(p.join(dir.path, 'school_app.sqlite'));
+
+  if (await dbFile.exists()) {
+    await dbFile.delete(); // delete old db for dev testing
+  }
+
   runApp(
     const ProviderScope(
       child: MyApp(),

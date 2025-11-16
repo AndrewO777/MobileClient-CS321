@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/CafeteriaMenu.dart';
-import '../models/CafeteriaItem.dart';
-import '../services/cafeteria_service.dart';
+import '../database/database_provider.dart';
+import '../models/CafeteriaItem.dart' as model;
+import '../services/cached_cafeteria_service.dart';
+import '../database/database.dart';
 
 class CafeteriaPage extends StatefulWidget {
   const CafeteriaPage({Key? key}) : super(key: key);
@@ -11,10 +12,29 @@ class CafeteriaPage extends StatefulWidget {
 }
 
 class _CafeteriaPageState extends State<CafeteriaPage> {
-  final CafeteriaService _cafeteriaService = CafeteriaService();
+  late final CachedCafeteriaService _cafeteriaService;
+  //late final AppDatabase _database;
+  bool _isRefreshing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final database = DatabaseProvider.instance;
+    _cafeteriaService = CachedCafeteriaService(database);
+    _loadInitialData();
+  }
+
+  Future<void> _loadInitialData() async {
+    await _cafeteriaService.loadCafeteriaItems();
+  }
+
+  Future<void> _refreshCafeteria() async {
+    setState(() => _isRefreshing = true);
+    await _cafeteriaService.refreshCafeteriaItems();
+    setState(() => _isRefreshing = false);
+  }
 
   IconData _getIconData(String iconName) {
-    // Map icon names to actual Flutter icons
     switch (iconName.toLowerCase()) {
       case 'restaurant':
         return Icons.restaurant;
@@ -22,6 +42,20 @@ class _CafeteriaPageState extends State<CafeteriaPage> {
         return Icons.local_drink;
       case 'fastfood':
         return Icons.fastfood;
+      case 'local_pizza':
+        return Icons.local_pizza;
+      case 'lunch_dining':
+        return Icons.lunch_dining;
+      case 'eco':
+        return Icons.eco;
+      case 'grass':
+        return Icons.grass;
+      case 'coffee':
+        return Icons.coffee;
+      case 'bolt':
+        return Icons.bolt;
+      case 'water_drop':
+        return Icons.water_drop;
       default:
         return Icons.restaurant_menu;
     }
@@ -43,17 +77,23 @@ class _CafeteriaPageState extends State<CafeteriaPage> {
                   backgroundImage: AssetImage("assets/school_logo.png"),
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Cafeteria",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      if (_isRefreshing)
+                        const SizedBox(
+                          height: 12,
+                          width: 12,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
                     ],
                   ),
                 ),
@@ -63,10 +103,10 @@ class _CafeteriaPageState extends State<CafeteriaPage> {
         ),
 
         Expanded(
-          child: FutureBuilder<List<CafeteriaMenu>>(
-            future: _cafeteriaService.getMenus(),
+          child: StreamBuilder<List<model.CafeteriaItem>>(
+            stream: _cafeteriaService.watchCafeteriaItems(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
 
@@ -91,7 +131,7 @@ class _CafeteriaPageState extends State<CafeteriaPage> {
                         ),
                         const SizedBox(height: 24),
                         ElevatedButton.icon(
-                          onPressed: () => setState(() {}),
+                          onPressed: _refreshCafeteria,
                           icon: const Icon(Icons.refresh),
                           label: const Text('Retry'),
                         ),
@@ -101,77 +141,60 @@ class _CafeteriaPageState extends State<CafeteriaPage> {
                 );
               }
 
-              if (snapshot.hasData) {
-                final menus = snapshot.data!;
+              final allItems = snapshot.data ?? [];
 
-                if (menus.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.restaurant, size: 64, color: Colors.grey[400]),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No menu available',
-                          style: TextStyle(color: Colors.grey[600], fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                // Get all menu items from all menus
-                final allItems = menus.expand((menu) => menu.menuItems).toList();
-
-                if (allItems.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.restaurant, size: 64, color: Colors.grey[400]),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No menu items available',
-                          style: TextStyle(color: Colors.grey[600], fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                return RefreshIndicator(
-                  onRefresh: () async => setState(() {}),
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: allItems.length,
-                    itemBuilder: (context, index) {
-                      final item = allItems[index];
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
-                            child: Icon(
-                              _getIconData(item.iconName),
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                          title: Text(item.name),
-                          subtitle: Text(item.description),
-                          trailing: Chip(
-                            label: Text(
-                              item.category.name.toUpperCase(),
-                              style: const TextStyle(fontSize: 10),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+              if (allItems.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.restaurant, size: 64, color: Colors.grey[400]),
+                      const SizedBox(height: 16),
+                      Text(
+                        'No menu items available',
+                        style: TextStyle(color: Colors.grey[600], fontSize: 16),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton.icon(
+                        onPressed: _refreshCafeteria,
+                        icon: const Icon(Icons.refresh),
+                        label: const Text('Load Menu'),
+                      ),
+                    ],
                   ),
                 );
               }
 
-              return const Center(child: Text('No data available'));
+              return RefreshIndicator(
+                onRefresh: _refreshCafeteria,
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: allItems.length,
+                  itemBuilder: (context, index) {
+                    final item = allItems[index];
+                    return Card(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
+                          child: Icon(
+                            _getIconData(item.iconName),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        title: Text(item.name),
+                        subtitle: Text(item.description),
+                        trailing: Chip(
+                          label: Text(
+                            item.category.name.toUpperCase(),
+                            style: const TextStyle(fontSize: 10),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
             },
           ),
         ),
