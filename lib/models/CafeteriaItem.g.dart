@@ -29,7 +29,7 @@ Map<String, dynamic> _$CafeteriaItemToJson(CafeteriaItem instance) =>
     };
 
 const _$MenuCategoryEnumMap = {
-  MenuCategory.side: 'Side',
-  MenuCategory.drink: 'Drink',
-  MenuCategory.appetizer: 'Appetizer',
+  MenuCategory.side: 0,
+  MenuCategory.drink: 1,
+  MenuCategory.appetizer: 2,
 };

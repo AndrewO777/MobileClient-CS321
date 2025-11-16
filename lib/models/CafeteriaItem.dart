@@ -3,11 +3,11 @@ import 'package:json_annotation/json_annotation.dart';
 part 'CafeteriaItem.g.dart';
 
 enum MenuCategory {
-  @JsonValue('Side')
+  @JsonValue(0)
   side,
-  @JsonValue('Drink')
+  @JsonValue(1)
   drink,
-  @JsonValue('Appetizer')
+  @JsonValue(2)
   appetizer,
 }
 

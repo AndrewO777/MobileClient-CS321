@@ -8,33 +8,49 @@ class CafeteriaService {
     try {
       final response = await _apiService.getCafeteriaMenus();
 
+      print('Cafeteria Response successful: ${response.isSuccessful}');
+      print('Cafeteria Response statusCode: ${response.statusCode}');
+      print('Cafeteria Response body: ${response.body}');
+
       if (response.isSuccessful && response.body != null) {
         final body = response.body;
 
         if (body is! List) {
+          print('ERROR: Expected a list but got ${body.runtimeType}');
           throw Exception('Expected a list but got ${body.runtimeType}');
         }
 
         final List<dynamic> bodyList = body as List<dynamic>;
+        print('Cafeteria Body list length: ${bodyList.length}');
 
-        return bodyList
+        final menus = bodyList
             .where((json) => json != null)
             .map((json) {
           if (json is! Map<String, dynamic>) {
             return null;
           }
           try {
-            return CafeteriaMenu.fromJson(json);
-          } catch (e) {
+            final menu = CafeteriaMenu.fromJson(json);
+            print('Successfully parsed menu with ${menu.menuItems.length} items');
+            return menu;
+          } catch (e, stackTrace) {
+            print('Error parsing menu: $e');
+            print('Stack trace: $stackTrace');
+            print('Problematic JSON: $json');
             return null;
           }
         })
             .whereType<CafeteriaMenu>()
             .toList();
+
+        print('Final menus list length: ${menus.length}');
+        return menus;
       } else {
         throw Exception('Failed to load menus: ${response.error ?? response.statusCode}');
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      print('Exception in getMenus: $e');
+      print('Stack trace: $stackTrace');
       throw Exception('Failed to load menus: $e');
     }
   }
