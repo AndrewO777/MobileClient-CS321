@@ -1,11 +1,9 @@
 import 'dart:async';
 
+import 'package:app_links/app_links.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oauth_chopper/oauth_chopper.dart' as oc;
-
-//TODO: add back in after Logto configuration
-/*import 'package:app_links/app_links.dart';
-import 'package:url_launcher/url_launcher.dart';*/
+import 'package:url_launcher/url_launcher.dart';
 
 import '../providers/oauth/chopper_provider.dart';
 import '../providers/oauth/config_provider.dart';
@@ -33,23 +31,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
   Future<void> signIn() async {
     state = const AsyncValue.loading();
 
-    //TODO: remove fake credentials below when adding real configuration
-    //fake login - temporary
-
-    const fakeJson = '''
-    {
-      "access_token": "fake-jwt-12345",
-      "token_type": "Bearer",
-      "expires_in": 3600
-    }
-    ''';
-
-    await _ref.read(oauthStorageProvider).saveCredentials(fakeJson);
-    state = const AsyncValue.data(true);
-
-
-    //TODO: add back and configure after adding Logto
-    /*final cfg = _ref.read(oauthConfigProvider);
+    final cfg = _ref.read(oauthConfigProvider);
     final oauth = _ref.read(oauthChopperProvider);
 
     final appLinks = AppLinks();
@@ -60,7 +42,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     // 1) Start listening for incoming links that match our redirectUri
     StreamSubscription<Uri>? sub;
     sub = appLinks.uriLinkStream.listen(
-      (uri) {
+          (uri) {
         final expectedPrefix = cfg.redirectUri;
         if (uri.toString().startsWith(expectedPrefix)) {
           if (!completer.isCompleted) {
@@ -109,7 +91,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
       if (sub != null) {
         await sub.cancel();
       }
-    }*/
+    }
   }
 
   Future<void> signOut() async {

@@ -4,9 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final oauthConfigProvider = Provider<_OAuthConfig>((ref) {
   const resource = 'http://school-api';
 
-  //TODO: revisit and configure when Logto is added -- this is copied from Charles' example
   return const _OAuthConfig(
-    // These values are from the Logto console's Flutter app I created
     authorizationEndpoint:
         'https://usr3ww.logto.app/oidc/auth?resource=$resource',
     tokenEndpoint: 'https://usr3ww.logto.app/oidc/token?resource=$resource',

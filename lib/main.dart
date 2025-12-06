@@ -11,6 +11,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'firebase_options.dart';
 import 'services/notification_manager.dart';
+import 'package:logto_dart_sdk/logto_dart_sdk.dart';
+import 'package:http/http.dart' as http;
 
 // Background message handler - MUST be a top-level function
 @pragma('vm:entry-point')
@@ -63,10 +65,42 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isAuthenticated = false;
+
   @override
   void initState() {
     super.initState();
     _initializeFirebaseMessaging();
+    _initializeLogto();
+  }
+
+  late LogtoClient logtoClient;
+
+  void render() async {
+    if (await logtoClient.isAuthenticated) {
+      setState(() {
+        isAuthenticated = true;
+      });
+
+      return;
+    }
+
+    setState(() {
+      isAuthenticated = false;
+    });
+  }
+
+  final logtoConfig = const LogtoConfig(
+      appId: "cgkzm2cbkc9s3kkieftgz",
+      endpoint: "https://msp6cu.logto.app/oidc"
+  );
+
+  void _initializeLogto() {
+    logtoClient = LogtoClient(
+      config: logtoConfig,
+      httpClient: http.Client(), // Optional http client
+    );
+    render();
   }
 
   Future<void> _initializeFirebaseMessaging() async {
