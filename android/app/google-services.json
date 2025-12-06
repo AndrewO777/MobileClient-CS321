@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "945582727760",
+    "project_id": "nerdtech-mobile-app",
+    "storage_bucket": "nerdtech-mobile-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945582727760:android:140c3afc689b63f0d4e755",
+        "android_client_info": {
+          "package_name": "com.example.school_mobileapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACgXCKo3TeUNe_3pSyTytkoKezsooU0C0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

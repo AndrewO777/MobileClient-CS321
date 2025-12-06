@@ -20,7 +20,7 @@ class AboutPage extends ConsumerWidget {
     return Scaffold(
       body: Column(
         children: [
-          // ✅ Header (same layout as Events)
+          //Header (same layout as Events)
           SafeArea(
             bottom: false,
             child: Container(
