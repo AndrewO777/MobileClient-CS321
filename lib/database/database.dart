@@ -75,6 +75,7 @@ class CafeteriaItems extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+
 @DriftDatabase(
   tables: [
     NewsItems,
