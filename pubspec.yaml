@@ -36,11 +36,6 @@ dependencies:
   flutter_riverpod: ^2.5.1
   logto_dart_sdk: ^3.0.0
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  go_router: ^14.6.2
-
   # Drift dependencies
   drift: ^2.16.0
   sqlite3_flutter_libs: ^0.5.0
@@ -67,6 +62,15 @@ dev_dependencies:
   chopper_generator: ^8.0.0
   json_serializable: ^6.8.0
 
+  # Change App Launcher Icon
+  flutter_launcher_icons: ^0.13.1
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  go_router: ^14.6.2
+
   # Drift dev dependencies
   drift_dev: ^2.16.0
 
@@ -79,6 +83,15 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+# App Launcher Icon
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/nerd_app_icon.png"
+
+  adaptive_icon_foreground: "assets/nerd_shield.png"
+  adaptive_icon_background: "#6A5ACD"
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -94,6 +107,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/school_logo.png
+    - assets/nerd_app_icon.png
+    - assets/nerd_shield.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
