@@ -17,7 +17,7 @@ final authRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authControllerProvider);
 
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/splash',
     debugLogDiagnostics: true,
 
     routes: [
@@ -89,10 +89,13 @@ final authRouterProvider = Provider<GoRouter>((ref) {
 
       // Not authenticated
       if (!isAuthenticated) {
-        // Allow splash & login without redirect
-        if (!isProtected) return null;
+        // If we're on splash and not loading, go to login
+        if (isSplash) return '/login';
 
-        // Send to login and remember where we came from
+        // If already on login, stay there
+        if (isLoggingIn) return null;
+
+        // For protected routes, send to login and remember where we came from
         final from = state.matchedLocation;
         return '/login?from=$from';
       }
