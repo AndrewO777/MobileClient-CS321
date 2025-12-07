@@ -3,16 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'router/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
 import 'firebase_options.dart';
-import 'services/notification_manager.dart';
-import 'package:logto_dart_sdk/logto_dart_sdk.dart';
-import 'package:http/http.dart' as http;
+
+import 'providers/oauth/auth_router.dart';
 
 // Background message handler - MUST be a top-level function
 @pragma('vm:entry-point')
@@ -41,7 +37,6 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // Initialize notification manager (handles token registration)
-  await NotificationManager().initialize();
 
   final dir = await getApplicationDocumentsDirectory();
   final dbFile = File(p.join(dir.path, 'school_app.sqlite'));
@@ -57,55 +52,24 @@ void main() async {
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  bool isAuthenticated = false;
-
+class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
     _initializeFirebaseMessaging();
-    _initializeLogto();
-  }
-
-  late LogtoClient logtoClient;
-
-  void render() async {
-    if (await logtoClient.isAuthenticated) {
-      setState(() {
-        isAuthenticated = true;
-      });
-
-      return;
-    }
-
-    setState(() {
-      isAuthenticated = false;
-    });
-  }
-
-  final logtoConfig = const LogtoConfig(
-      appId: "cgkzm2cbkc9s3kkieftgz",
-      endpoint: "https://msp6cu.logto.app/oidc"
-  );
-
-  void _initializeLogto() {
-    logtoClient = LogtoClient(
-      config: logtoConfig,
-      httpClient: http.Client(), // Optional http client
-    );
-    render();
   }
 
   Future<void> _initializeFirebaseMessaging() async {
     // Request notification permissions (required for iOS, harmless on Android)
-    NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+    NotificationSettings settings =
+    await FirebaseMessaging.instance.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -126,8 +90,7 @@ class _MyAppState extends State<MyApp> {
         print('Title: ${message.notification!.title}');
         print('Body: ${message.notification!.body}');
 
-        // Show a dialog or snackbar for foreground notifications
-        _showNotificationDialog(
+        _showNotificationSnack(
           message.notification!.title ?? 'Notification',
           message.notification!.body ?? '',
         );
@@ -135,7 +98,7 @@ class _MyAppState extends State<MyApp> {
 
       if (message.data.isNotEmpty) {
         print('Data: ${message.data}');
-        // Handle custom data here
+        // Handle custom data here if needed
       }
     });
 
@@ -143,69 +106,66 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('🔔 Notification tapped! (from background)');
       print('Data: ${message.data}');
-
-      // Navigate to a specific screen based on notification data
       _handleNotificationTap(message);
     });
 
     // Check if app was opened from a terminated state by tapping notification
-    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    RemoteMessage? initialMessage =
+    await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
       print('🔔 App opened from terminated state via notification!');
       print('Data: ${initialMessage.data}');
-
-      // Handle the initial notification that opened the app
       _handleNotificationTap(initialMessage);
     }
   }
 
-  void _showNotificationDialog(String title, String body) {
-    // Just print for foreground - system notifications are better anyway
-    print('📬 Notification: $title - $body');
+  void _showNotificationSnack(String title, String body) {
+    // Use the auth-aware router's navigator key to get a context
+    final router = ref.read(authRouterProvider);
+    final context = router.routerDelegate.navigatorKey.currentContext;
 
-    // Optional: Show a SnackBar instead of dialog
-    final context = AppRouter.router.routerDelegate.navigatorKey.currentContext;
     if (context != null && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('$title: $body'),
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           action: SnackBarAction(
             label: 'View',
             onPressed: () {
-              // Handle tap
+              // TODO: navigate somewhere based on notification if needed
             },
           ),
         ),
       );
+    } else {
+      print('📬 Notification: $title - $body');
     }
   }
 
   void _handleNotificationTap(RemoteMessage message) {
-    // Example: Navigate based on notification data
-    // You can customize this based on your app's routing structure
+    // Example: route-based navigation using data payload
+    final router = ref.read(authRouterProvider);
 
     if (message.data.containsKey('route')) {
-      String route = message.data['route'];
+      final route = message.data['route'] as String;
       print('📍 Navigating to: $route');
 
-      // Example routing logic:
-      // - If route is 'events', navigate to events page
-      // - If route is 'news', navigate to news page
-      // - etc.
+      // Example: you could define routes like '/events', '/news', etc.
+      router.go(route);
 
-      // You'll need to implement this based on your app's router
-      // For example, using go_router:
-      // AppRouter.router.go('/$route');
-
-      if (message.data.containsKey('id')) {
-        // AppRouter.router.go('/$route/${message.data['id']}');
-      }
+      // If you also pass an 'id' in data, you can handle it here
+      // if (message.data.containsKey('id')) {
+      //   final id = message.data['id'];
+      //   router.go('/$route/$id');
+      // }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Use the auth-aware GoRouter from Riverpod
+    final router = ref.watch(authRouterProvider);
+
     return MaterialApp.router(
       title: 'NERD Tech School',
       theme: ThemeData(
@@ -236,7 +196,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      routerConfig: AppRouter.router,
+      routerConfig: router, // Use authRouterProvider
     );
   }
 }

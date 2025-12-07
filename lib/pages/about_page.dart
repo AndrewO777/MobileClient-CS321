@@ -4,8 +4,8 @@ import '../services/api_client.dart';
 import '../services/about_service.dart';
 
 final aboutProvider = FutureProvider.autoDispose((ref) async {
-  final client = ref.watch(apiClientProvider);
-  final service = AboutService.create(client);
+  final chopperClient = ref.watch(chopperClientProvider);
+  final service = AboutService.create(chopperClient);
   final response = await service.getAboutData();
   return response.body ?? {};
 });

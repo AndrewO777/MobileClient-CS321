@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class MainScaffold extends StatelessWidget {
+import '../providers/oauth/auth_controller_provider.dart';
+
+class MainScaffold extends ConsumerWidget {
   final Widget child;
 
   const MainScaffold({super.key, required this.child});
@@ -29,7 +32,7 @@ class MainScaffold extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -102,8 +105,7 @@ class MainScaffold extends StatelessWidget {
               },
             ),
             ListTile(
-              leading:
-              const Icon(Icons.restaurant_menu, color: Color(0xFF6A5ACD)),
+              leading: const Icon(Icons.restaurant_menu, color: Color(0xFF6A5ACD)),
               title: const Text('Cafeteria'),
               onTap: () {
                 Navigator.pop(context);
@@ -126,11 +128,26 @@ class MainScaffold extends StatelessWidget {
               applicationLegalese: '© 2025 NERD Tech School',
               aboutBoxChildren: [
                 SizedBox(height: 10),
-                Text(
-                  'A comprehensive mobile application for students!'
-                ),
+                Text('A comprehensive mobile application for students!'),
               ],
               child: Text('About This App'),
+            ),
+
+            const Divider(),
+
+            // LOG OUT
+            ListTile(
+              leading: const Icon(Icons.logout, color: Color(0xFF6A5ACD)),
+              title: const Text('Log out'),
+              onTap: () async {
+                Navigator.pop(context); // close the drawer
+
+                await ref
+                    .read(authControllerProvider.notifier)
+                    .signOut(); // clears token + sets state to false
+
+                context.go('/login');
+              },
             ),
           ],
         ),

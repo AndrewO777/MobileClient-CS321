@@ -1,14 +1,16 @@
 import '../database/database.dart';
 import '../models/SchoolNews.dart';
-import 'api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/api_service_provider.dart';
+import 'api_service.dart';
 
 class CachedNewsService {
+  final ApiService _apiService;
   final AppDatabase _database;
-  final _apiService = ApiClient().apiService;
 
   static const cacheDuration = Duration(hours: 1);
 
-  CachedNewsService(this._database);
+  CachedNewsService(this._apiService, this._database);
 
   // Stream of news from database
   Stream<List<SchoolNews>> watchNews() {

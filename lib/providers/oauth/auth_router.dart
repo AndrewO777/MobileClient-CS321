@@ -1,19 +1,24 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../pages/splash_page.dart';
 import '../../pages/login_page.dart';
 import '../../pages/home_page.dart';
+import '../../pages/news_page.dart';
 import '../../pages/events_page.dart';
+import '../../pages/cafeteria_page.dart';
+import '../../pages/about_page.dart';
+
+import '../../widgets/main_scaffold.dart';
 import 'auth_controller_provider.dart';
 
-/// Main GoRouter provider using Riverpod.
 final authRouterProvider = Provider<GoRouter>((ref) {
-  // Watch auth so that router rebuilds / re-evaluates redirects on change.
-  ref.watch(authControllerProvider);
+  final authState = ref.watch(authControllerProvider);
 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/login',
+    debugLogDiagnostics: true,
 
     routes: [
       GoRoute(
@@ -24,92 +29,80 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/login',
         name: 'login',
-        builder:
-            (context, state) =>
-                LoginPage(from: state.uri.queryParameters['from']),
-      ),
-      GoRoute(
-        path: '/',
-        name: 'home',
-        builder: (context, state) => const HomePage(), // Placeholder
-      ),
-      GoRoute(
-        path: '/announcements',
-        name: 'announcements',
-        builder: (context, state) => const EventsPage(),
+        builder: (context, state) =>
+            LoginPage(from: state.uri.queryParameters['from']),
       ),
 
-      // Add other routes here...
+      // All authenticated routes live inside MainScaffold
+      ShellRoute(
+        builder: (context, state, child) => MainScaffold(child: child),
+        routes: [
+          GoRoute(
+            path: '/',
+            name: 'home',
+            builder: (context, state) => const HomePage(),
+          ),
+          GoRoute(
+            path: '/news',
+            name: 'news',
+            builder: (context, state) => const NewsPage(),
+          ),
+          GoRoute(
+            path: '/events',
+            name: 'events',
+            builder: (context, state) => const EventsPage(),
+          ),
+          GoRoute(
+            path: '/cafeteria',
+            name: 'cafeteria',
+            builder: (context, state) => const CafeteriaPage(),
+          ),
+          GoRoute(
+            path: '/about',
+            name: 'about',
+            builder: (context, state) => const AboutPage(),
+          ),
+          // Announcements route if we want it
+          // GoRoute(
+          //   path: '/announcements',
+          //   name: 'announcements',
+          //   builder: (context, state) => const HomePage(),
+          // ),
+        ],
+      ),
     ],
 
-    /// Centralized AuthGuard logic.
+    // CENTRALIZED AUTH REDIRECT LOGIC
     redirect: (context, state) {
-      final auth = ref.read(authControllerProvider);
-
       final isSplash = state.uri.path == '/splash';
       final isLoggingIn = state.uri.path == '/login';
 
-      // Which routes require auth?
-      final bool isProtectedRoute = _isProtectedPath(state.uri.path);
+      // Any route that's not splash/login is considered protected
+      final isProtected = !isSplash && !isLoggingIn;
 
-      // 1) While we're bootstrapping auth, stay on /splash.
-      if (auth.isLoading) {
-        // Already on splash? Stay there.
-        if (isSplash) return null;
-        // Anywhere else? Go to splash until we know our auth state.
-        return '/splash';
+      final bool isAuthenticated = authState.value ?? false;
+
+      // While we're checking auth on startup, stay on splash
+      if (authState.isLoading) {
+        return isSplash ? null : '/splash';
       }
 
-      // If there was an error during bootstrap, you might decide to:
-      // - Treat it as not-authenticated, or
-      // - Show an error page.
-      // Here we just treat it like "not authenticated".
-      final bool isAuthenticated = (auth.value == true);
-
-      // 2) Not authenticated → block protected routes.
+      // Not authenticated
       if (!isAuthenticated) {
-        if (isProtectedRoute) {
-          // Remember the original destination so we can go back after login.
-          final from = state.uri.toString();
-          return '/login?from=$from';
-        }
+        // Allow splash & login without redirect
+        if (!isProtected) return null;
 
-        // Public routes (/login, maybe some others) are allowed.
-        return null;
+        // Send to login and remember where we came from
+        final from = state.matchedLocation;
+        return '/login?from=$from';
       }
 
-      // 3) Authenticated → don’t stay on /login or /splash.
-      if (isLoggingIn || isSplash) {
-        // If we have a "from" query param, go there; otherwise go home.
-        final from = state.uri.queryParameters['from'];
-        if (from != null && from.isNotEmpty) {
-          return from;
-        }
-        return '/';
-      }
+      // Authenticated
+      // If we're still on splash or login, send to home
+      if (isSplash || isLoggingIn) return '/';
 
-      // 4) Authenticated and going somewhere allowed → no redirect.
+      // Otherwise, stay where we are
       return null;
     },
   );
 });
-
-/// Helper: define which paths are protected.
-/// You can adjust this to match your app’s route structure.
-bool _isProtectedPath(String path) {
-  // This is a good use of a switch statement.  There, I said it!
-  bool requiresAuth = false;
-
-  // Add the cases for those that require auth.  All others don't
-  switch (path) {
-    // case ('/'): // If requiring login to start using the app
-    case ('/announcements'):
-      requiresAuth = true;
-      break;
-    default:
-      requiresAuth = false;
-      break;
-  }
-
-  return requiresAuth;
-}

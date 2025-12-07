@@ -1,8 +1,12 @@
 import 'package:school_mobileapp/models/SchoolEvent.dart';
-import 'api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/api_service_provider.dart';
 
 class EventService {
-  final _apiService = ApiClient().apiService;
+  final WidgetRef ref;
+  late final _apiService = ref.read(apiServiceProvider);
+
+  EventService(this.ref);
 
   Future<List<SchoolEvent>> getEvents() async {
     try {

@@ -1,14 +1,16 @@
 import '../database/database.dart';
 import '../models/SchoolEvent.dart';
-import 'api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/api_service_provider.dart';
+import 'api_service.dart';
 
 class CachedEventService {
+  final ApiService _apiService;
   final AppDatabase _database;
-  final _apiService = ApiClient().apiService;
 
   static const cacheDuration = Duration(hours: 1);
 
-  CachedEventService(this._database);
+  CachedEventService(this._apiService, this._database);
 
   // Stream of events from database
   Stream<List<SchoolEvent>> watchEvents() {

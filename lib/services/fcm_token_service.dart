@@ -1,4 +1,6 @@
 import 'package:chopper/chopper.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'auth_interceptor.dart';
 
 part 'fcm_token_service.chopper.dart';
 
@@ -32,8 +34,10 @@ abstract class FcmTokenService extends ChopperService {
       @Path('deviceId') String deviceId,
       );
 
-  /// Create the service instance
-  static FcmTokenService create() {
+  /// Create the service instance with authentication support
+  ///
+  /// Pass in a Ref from Riverpod to enable bearer token authentication
+  static FcmTokenService create(Ref ref) {
     final client = ChopperClient(
       baseUrl: Uri.parse('http://10.0.2.2:8080/v1'),
       services: [
@@ -41,6 +45,7 @@ abstract class FcmTokenService extends ChopperService {
       ],
       converter: const JsonConverter(),
       interceptors: [
+        AuthInterceptor(ref),  // Adds bearer token to requests
         HttpLoggingInterceptor(),
       ],
     );

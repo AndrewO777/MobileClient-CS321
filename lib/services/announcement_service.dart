@@ -1,8 +1,12 @@
 import '../models/Announcement.dart';
-import 'api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/api_service_provider.dart';
 
 class AnnouncementService {
-  final _apiService = ApiClient().apiService;
+  final Ref ref;
+  late final _apiService = ref.read(apiServiceProvider);
+
+  AnnouncementService(this.ref);
 
   Future<Announcement> getAllAnnouncements() async {
     final response = await _apiService.getAnnouncements();

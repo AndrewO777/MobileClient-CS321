@@ -1,8 +1,12 @@
 import '../models/SchoolNews.dart';
-import 'api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/api_service_provider.dart';
 
 class NewsService {
-  final _apiService = ApiClient().apiService;
+  final Ref ref;
+  late final _apiService = ref.read(apiServiceProvider);
+
+  NewsService(this.ref);
 
   Future<List<SchoolNews>> getNews() async {
     try {

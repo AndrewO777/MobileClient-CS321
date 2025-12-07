@@ -3,26 +3,31 @@ import 'package:intl/intl.dart';
 import '../database/database_provider.dart';
 import '../models/SchoolEvent.dart';
 import '../services/cached_event_service.dart';
-import '../database/database.dart';
+import '../providers/api_service_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventsPage extends StatefulWidget {
+class EventsPage extends ConsumerStatefulWidget {
   const EventsPage({Key? key}) : super(key: key);
 
   @override
-  _EventsPageState createState() => _EventsPageState();
+  ConsumerState<EventsPage> createState() => _EventsPageState();
 }
 
-class _EventsPageState extends State<EventsPage> {
+class _EventsPageState extends ConsumerState<EventsPage> {
   late final CachedEventService _eventService;
-  //late final AppDatabase _database;
   bool _isRefreshing = false;
 
   @override
   void initState() {
     super.initState();
+
     final database = DatabaseProvider.instance;
-    _eventService = CachedEventService(database);
-    _loadInitialData();
+    final apiService = ref.read(apiServiceProvider);
+    _eventService = CachedEventService(apiService, database);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadInitialData();
+    });
   }
 
   Future<void> _loadInitialData() async {
@@ -78,9 +83,10 @@ class _EventsPageState extends State<EventsPage> {
 
         Expanded(
           child: StreamBuilder<List<SchoolEvent>>(
-            stream: _eventService.watchEvents(),
+            stream: _eventService.watchEvents(),          // 👈 uses the new field
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.waiting &&
+                  !snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               }
 
@@ -91,7 +97,8 @@ class _EventsPageState extends State<EventsPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                        const Icon(Icons.error_outline,
+                            size: 64, color: Colors.red),
                         const SizedBox(height: 16),
                         Text(
                           'Error loading events',
@@ -122,11 +129,13 @@ class _EventsPageState extends State<EventsPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
+                      Icon(Icons.event_busy,
+                          size: 64, color: Colors.grey[400]),
                       const SizedBox(height: 16),
                       Text(
                         'No events available',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 16),
+                        style:
+                        TextStyle(color: Colors.grey[600], fontSize: 16),
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton.icon(
@@ -175,7 +184,8 @@ class _EventsPageState extends State<EventsPage> {
                                 const SizedBox(width: 16),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         event.title ?? 'Untitled Event',
@@ -188,10 +198,12 @@ class _EventsPageState extends State<EventsPage> {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        event.description ?? 'No description available',
+                                        event.description ??
+                                            'No description available',
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(color: Colors.grey[700]),
+                                        style: TextStyle(
+                                            color: Colors.grey[700]),
                                       ),
                                     ],
                                   ),
@@ -201,10 +213,12 @@ class _EventsPageState extends State<EventsPage> {
 
                             const SizedBox(height: 12),
 
-                            if (event.location != null && event.location!.isNotEmpty)
+                            if (event.location != null &&
+                                event.location!.isNotEmpty)
                               Row(
                                 children: [
-                                  const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                                  const Icon(Icons.location_on,
+                                      size: 16, color: Colors.grey),
                                   const SizedBox(width: 4),
                                   Expanded(
                                     child: Text(
@@ -222,20 +236,24 @@ class _EventsPageState extends State<EventsPage> {
 
                             Row(
                               children: [
-                                const Icon(Icons.calendar_today, size: 16, color: Colors.grey),
+                                const Icon(Icons.calendar_today,
+                                    size: 16, color: Colors.grey),
                                 const SizedBox(width: 4),
                                 Text(
-                                  DateFormat('MMM dd, yyyy').format(event.start),
+                                  DateFormat('MMM dd, yyyy')
+                                      .format(event.start),
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey[600],
                                   ),
                                 ),
                                 const SizedBox(width: 16),
-                                const Icon(Icons.access_time, size: 16, color: Colors.grey),
+                                const Icon(Icons.access_time,
+                                    size: 16, color: Colors.grey),
                                 const SizedBox(width: 4),
                                 Text(
-                                  '${DateFormat('h:mm a').format(event.start)} - ${DateFormat('h:mm a').format(event.end)}',
+                                  '${DateFormat('h:mm a').format(event.start)} - '
+                                      '${DateFormat('h:mm a').format(event.end)}',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey[600],

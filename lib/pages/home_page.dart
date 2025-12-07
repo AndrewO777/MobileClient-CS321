@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import '../models/School.dart';
 import '../models/Announcement.dart';
+import '../providers/api_service_provider.dart';
+import '../providers/notification_manager_provider.dart';
 import '../services/cached_school_service.dart';
 import '../services/cached_announcement_service.dart';
 import '../database/database_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   late final CachedSchoolService _schoolService;
   late final CachedAnnouncementService _announcementService;
   bool _isRefreshing = false;
@@ -21,8 +24,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     final database = DatabaseProvider.instance;
-    _schoolService = CachedSchoolService(database);
-    _announcementService = CachedAnnouncementService(database);
+    final apiService = ref.read(apiServiceProvider);
+    _schoolService = CachedSchoolService(apiService, database);
+    _announcementService = CachedAnnouncementService(apiService, database);
+    final nm = ref.read(notificationManagerProvider);
+    nm.initialize();
     _loadInitialData();
   }
 

@@ -1,17 +1,18 @@
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'fcm_token_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/fcm_token_service_provider.dart';
 
 /// Manages Firebase Cloud Messaging tokens and backend synchronization
 class NotificationManager {
-  static final NotificationManager _instance = NotificationManager._internal();
-  factory NotificationManager() => _instance;
-  NotificationManager._internal();
+  final Ref ref;
+  late final _fcmTokenService = ref.read(fcmTokenServiceProvider);
 
-  final FcmTokenService _fcmTokenService = FcmTokenService.create();
   String? _currentToken;
   String? _deviceId;
+
+  NotificationManager(this.ref);
 
   /// Initialize notification manager and register token with backend
   Future<void> initialize() async {

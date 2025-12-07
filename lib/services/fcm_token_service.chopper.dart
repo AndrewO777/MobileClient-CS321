@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'fcm_token_service.dart';
 
@@ -19,15 +20,11 @@ final class _$FcmTokenService extends FcmTokenService {
 
   @override
   Future<Response<Map<String, dynamic>>> registerToken(
-      Map<String, dynamic> tokenData) {
+    Map<String, dynamic> tokenData,
+  ) {
     final Uri $url = Uri.parse('FCMToken');
     final $body = tokenData;
-    final Request $request = Request(
-      'POST',
-      $url,
-      client.baseUrl,
-      body: $body,
-    );
+    final Request $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<Map<String, dynamic>, Map<String, dynamic>>($request);
   }
 
@@ -38,23 +35,14 @@ final class _$FcmTokenService extends FcmTokenService {
   ) {
     final Uri $url = Uri.parse('FCMToken/${deviceId}');
     final $body = tokenData;
-    final Request $request = Request(
-      'PUT',
-      $url,
-      client.baseUrl,
-      body: $body,
-    );
+    final Request $request = Request('PUT', $url, client.baseUrl, body: $body);
     return client.send<Map<String, dynamic>, Map<String, dynamic>>($request);
   }
 
   @override
   Future<Response<void>> deleteToken(String deviceId) {
     final Uri $url = Uri.parse('FCMToken/${deviceId}');
-    final Request $request = Request(
-      'DELETE',
-      $url,
-      client.baseUrl,
-    );
+    final Request $request = Request('DELETE', $url, client.baseUrl);
     return client.send<void, void>($request);
   }
 }

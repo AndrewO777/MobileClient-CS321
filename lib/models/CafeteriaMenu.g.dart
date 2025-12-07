@@ -9,7 +9,8 @@ part of 'CafeteriaMenu.dart';
 CafeteriaMenu _$CafeteriaMenuFromJson(Map<String, dynamic> json) =>
     CafeteriaMenu(
       id: (json['id'] as num).toInt(),
-      menuItems: (json['menuItems'] as List<dynamic>?)
+      menuItems:
+          (json['menuItems'] as List<dynamic>?)
               ?.map((e) => CafeteriaItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],

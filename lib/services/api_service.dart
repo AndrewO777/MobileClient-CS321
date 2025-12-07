@@ -1,4 +1,6 @@
 import 'package:chopper/chopper.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'auth_interceptor.dart';
 
 part 'api_service.chopper.dart';
 
@@ -40,7 +42,10 @@ abstract class ApiService extends ChopperService{
   @GET(path: 'Cafeteria/{id}')
   Future<Response<Map<String, dynamic>>> getCafeteriaMenu(@Path('id') int id);
 
-  static ApiService create() {
+  /// Create ApiService with authentication support
+  ///
+  /// Pass in a Ref from Riverpod to enable bearer token authentication
+  static ApiService create(Ref ref) {
     final client = ChopperClient(
       baseUrl: Uri.parse('http://10.0.2.2:8080/v1'),
       services: [
@@ -48,6 +53,7 @@ abstract class ApiService extends ChopperService{
       ],
       converter: const JsonConverter(),
       interceptors: [
+        AuthInterceptor(ref),  // Adds bearer token to requests
         HttpLoggingInterceptor(),
       ],
     );

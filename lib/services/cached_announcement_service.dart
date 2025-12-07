@@ -1,14 +1,16 @@
 import '../database/database.dart';
 import '../models/Announcement.dart';
-import 'api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/api_service_provider.dart';
+import 'api_service.dart';
 
 class CachedAnnouncementService {
+  final ApiService _apiService;
   final AppDatabase _database;
-  final _apiService = ApiClient().apiService;
 
   static const cacheDuration = Duration(hours: 1);
 
-  CachedAnnouncementService(this._database);
+  CachedAnnouncementService(this._apiService, this._database);
 
   // Stream of announcements from database
   Stream<List<Announcement>> watchAnnouncements() {

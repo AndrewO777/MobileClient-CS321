@@ -12,88 +12,144 @@ class $NewsItemsTable extends NewsItems
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _headlineMeta =
-      const VerificationMeta('headline');
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _headlineMeta = const VerificationMeta(
+    'headline',
+  );
   @override
   late final GeneratedColumn<String> headline = GeneratedColumn<String>(
-      'headline', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _contentMeta =
-      const VerificationMeta('content');
+    'headline',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
   @override
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
-      'content', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _datePublishedMeta =
-      const VerificationMeta('datePublished');
+    'content',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _datePublishedMeta = const VerificationMeta(
+    'datePublished',
+  );
   @override
   late final GeneratedColumn<DateTime> datePublished =
-      GeneratedColumn<DateTime>('date_published', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+      GeneratedColumn<DateTime>(
+        'date_published',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
   static const VerificationMeta _authorMeta = const VerificationMeta('author');
   @override
   late final GeneratedColumn<String> author = GeneratedColumn<String>(
-      'author', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _schoolIdMeta =
-      const VerificationMeta('schoolId');
+    'author',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _schoolIdMeta = const VerificationMeta(
+    'schoolId',
+  );
   @override
   late final GeneratedColumn<int> schoolId = GeneratedColumn<int>(
-      'school_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _cachedAtMeta =
-      const VerificationMeta('cachedAt');
+    'school_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cachedAtMeta = const VerificationMeta(
+    'cachedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> cachedAt = GeneratedColumn<DateTime>(
-      'cached_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+    'cached_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, headline, content, datePublished, author, schoolId, cachedAt];
+  List<GeneratedColumn> get $columns => [
+    id,
+    headline,
+    content,
+    datePublished,
+    author,
+    schoolId,
+    cachedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'news_items';
   @override
-  VerificationContext validateIntegrity(Insertable<NewsItem> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<NewsItem> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('headline')) {
-      context.handle(_headlineMeta,
-          headline.isAcceptableOrUnknown(data['headline']!, _headlineMeta));
+      context.handle(
+        _headlineMeta,
+        headline.isAcceptableOrUnknown(data['headline']!, _headlineMeta),
+      );
     }
     if (data.containsKey('content')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
     }
     if (data.containsKey('date_published')) {
       context.handle(
+        _datePublishedMeta,
+        datePublished.isAcceptableOrUnknown(
+          data['date_published']!,
           _datePublishedMeta,
-          datePublished.isAcceptableOrUnknown(
-              data['date_published']!, _datePublishedMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_datePublishedMeta);
     }
     if (data.containsKey('author')) {
-      context.handle(_authorMeta,
-          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
+      context.handle(
+        _authorMeta,
+        author.isAcceptableOrUnknown(data['author']!, _authorMeta),
+      );
     }
     if (data.containsKey('school_id')) {
-      context.handle(_schoolIdMeta,
-          schoolId.isAcceptableOrUnknown(data['school_id']!, _schoolIdMeta));
+      context.handle(
+        _schoolIdMeta,
+        schoolId.isAcceptableOrUnknown(data['school_id']!, _schoolIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_schoolIdMeta);
     }
     if (data.containsKey('cached_at')) {
-      context.handle(_cachedAtMeta,
-          cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta));
+      context.handle(
+        _cachedAtMeta,
+        cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_cachedAtMeta);
     }
@@ -106,20 +162,34 @@ class $NewsItemsTable extends NewsItems
   NewsItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return NewsItem(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      headline: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}headline']),
-      content: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}content']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      headline: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}headline'],
+      ),
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      ),
       datePublished: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}date_published'])!,
-      author: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}author']),
-      schoolId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}school_id'])!,
-      cachedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}cached_at'])!,
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}date_published'],
+      )!,
+      author: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}author'],
+      ),
+      schoolId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}school_id'],
+      )!,
+      cachedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}cached_at'],
+      )!,
     );
   }
 
@@ -137,14 +207,15 @@ class NewsItem extends DataClass implements Insertable<NewsItem> {
   final String? author;
   final int schoolId;
   final DateTime cachedAt;
-  const NewsItem(
-      {required this.id,
-      this.headline,
-      this.content,
-      required this.datePublished,
-      this.author,
-      required this.schoolId,
-      required this.cachedAt});
+  const NewsItem({
+    required this.id,
+    this.headline,
+    this.content,
+    required this.datePublished,
+    this.author,
+    required this.schoolId,
+    required this.cachedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -174,15 +245,18 @@ class NewsItem extends DataClass implements Insertable<NewsItem> {
           ? const Value.absent()
           : Value(content),
       datePublished: Value(datePublished),
-      author:
-          author == null && nullToAbsent ? const Value.absent() : Value(author),
+      author: author == null && nullToAbsent
+          ? const Value.absent()
+          : Value(author),
       schoolId: Value(schoolId),
       cachedAt: Value(cachedAt),
     );
   }
 
-  factory NewsItem.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory NewsItem.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return NewsItem(
       id: serializer.fromJson<int>(json['id']),
@@ -208,23 +282,23 @@ class NewsItem extends DataClass implements Insertable<NewsItem> {
     };
   }
 
-  NewsItem copyWith(
-          {int? id,
-          Value<String?> headline = const Value.absent(),
-          Value<String?> content = const Value.absent(),
-          DateTime? datePublished,
-          Value<String?> author = const Value.absent(),
-          int? schoolId,
-          DateTime? cachedAt}) =>
-      NewsItem(
-        id: id ?? this.id,
-        headline: headline.present ? headline.value : this.headline,
-        content: content.present ? content.value : this.content,
-        datePublished: datePublished ?? this.datePublished,
-        author: author.present ? author.value : this.author,
-        schoolId: schoolId ?? this.schoolId,
-        cachedAt: cachedAt ?? this.cachedAt,
-      );
+  NewsItem copyWith({
+    int? id,
+    Value<String?> headline = const Value.absent(),
+    Value<String?> content = const Value.absent(),
+    DateTime? datePublished,
+    Value<String?> author = const Value.absent(),
+    int? schoolId,
+    DateTime? cachedAt,
+  }) => NewsItem(
+    id: id ?? this.id,
+    headline: headline.present ? headline.value : this.headline,
+    content: content.present ? content.value : this.content,
+    datePublished: datePublished ?? this.datePublished,
+    author: author.present ? author.value : this.author,
+    schoolId: schoolId ?? this.schoolId,
+    cachedAt: cachedAt ?? this.cachedAt,
+  );
   NewsItem copyWithCompanion(NewsItemsCompanion data) {
     return NewsItem(
       id: data.id.present ? data.id.value : this.id,
@@ -255,7 +329,14 @@ class NewsItem extends DataClass implements Insertable<NewsItem> {
 
   @override
   int get hashCode => Object.hash(
-      id, headline, content, datePublished, author, schoolId, cachedAt);
+    id,
+    headline,
+    content,
+    datePublished,
+    author,
+    schoolId,
+    cachedAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -294,9 +375,9 @@ class NewsItemsCompanion extends UpdateCompanion<NewsItem> {
     this.author = const Value.absent(),
     required int schoolId,
     required DateTime cachedAt,
-  })  : datePublished = Value(datePublished),
-        schoolId = Value(schoolId),
-        cachedAt = Value(cachedAt);
+  }) : datePublished = Value(datePublished),
+       schoolId = Value(schoolId),
+       cachedAt = Value(cachedAt);
   static Insertable<NewsItem> custom({
     Expression<int>? id,
     Expression<String>? headline,
@@ -317,14 +398,15 @@ class NewsItemsCompanion extends UpdateCompanion<NewsItem> {
     });
   }
 
-  NewsItemsCompanion copyWith(
-      {Value<int>? id,
-      Value<String?>? headline,
-      Value<String?>? content,
-      Value<DateTime>? datePublished,
-      Value<String?>? author,
-      Value<int>? schoolId,
-      Value<DateTime>? cachedAt}) {
+  NewsItemsCompanion copyWith({
+    Value<int>? id,
+    Value<String?>? headline,
+    Value<String?>? content,
+    Value<DateTime>? datePublished,
+    Value<String?>? author,
+    Value<int>? schoolId,
+    Value<DateTime>? cachedAt,
+  }) {
     return NewsItemsCompanion(
       id: id ?? this.id,
       headline: headline ?? this.headline,
@@ -387,58 +469,104 @@ class $EventItemsTable extends EventItems
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
+    'title',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'description',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _startMeta = const VerificationMeta('start');
   @override
   late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
-      'start', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+    'start',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _endMeta = const VerificationMeta('end');
   @override
   late final GeneratedColumn<DateTime> end = GeneratedColumn<DateTime>(
-      'end', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _campusIdMeta =
-      const VerificationMeta('campusId');
+    'end',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _campusIdMeta = const VerificationMeta(
+    'campusId',
+  );
   @override
   late final GeneratedColumn<int> campusId = GeneratedColumn<int>(
-      'campus_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _locationMeta =
-      const VerificationMeta('location');
+    'campus_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _locationMeta = const VerificationMeta(
+    'location',
+  );
   @override
   late final GeneratedColumn<String> location = GeneratedColumn<String>(
-      'location', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _cachedAtMeta =
-      const VerificationMeta('cachedAt');
+    'location',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _cachedAtMeta = const VerificationMeta(
+    'cachedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> cachedAt = GeneratedColumn<DateTime>(
-      'cached_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+    'cached_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, title, description, start, end, campusId, location, cachedAt];
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    description,
+    start,
+    end,
+    campusId,
+    location,
+    cachedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'event_items';
   @override
-  VerificationContext validateIntegrity(Insertable<EventItem> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<EventItem> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -446,39 +574,54 @@ class $EventItemsTable extends EventItems
     }
     if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     }
     if (data.containsKey('description')) {
       context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
           _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
+        ),
+      );
     }
     if (data.containsKey('start')) {
       context.handle(
-          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+        _startMeta,
+        start.isAcceptableOrUnknown(data['start']!, _startMeta),
+      );
     } else if (isInserting) {
       context.missing(_startMeta);
     }
     if (data.containsKey('end')) {
       context.handle(
-          _endMeta, end.isAcceptableOrUnknown(data['end']!, _endMeta));
+        _endMeta,
+        end.isAcceptableOrUnknown(data['end']!, _endMeta),
+      );
     } else if (isInserting) {
       context.missing(_endMeta);
     }
     if (data.containsKey('campus_id')) {
-      context.handle(_campusIdMeta,
-          campusId.isAcceptableOrUnknown(data['campus_id']!, _campusIdMeta));
+      context.handle(
+        _campusIdMeta,
+        campusId.isAcceptableOrUnknown(data['campus_id']!, _campusIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_campusIdMeta);
     }
     if (data.containsKey('location')) {
-      context.handle(_locationMeta,
-          location.isAcceptableOrUnknown(data['location']!, _locationMeta));
+      context.handle(
+        _locationMeta,
+        location.isAcceptableOrUnknown(data['location']!, _locationMeta),
+      );
     }
     if (data.containsKey('cached_at')) {
-      context.handle(_cachedAtMeta,
-          cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta));
+      context.handle(
+        _cachedAtMeta,
+        cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_cachedAtMeta);
     }
@@ -491,22 +634,38 @@ class $EventItemsTable extends EventItems
   EventItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return EventItem(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title']),
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description']),
-      start: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start'])!,
-      end: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}end'])!,
-      campusId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}campus_id'])!,
-      location: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}location']),
-      cachedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}cached_at'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      ),
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      ),
+      start: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}start'],
+      )!,
+      end: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}end'],
+      )!,
+      campusId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}campus_id'],
+      )!,
+      location: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}location'],
+      ),
+      cachedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}cached_at'],
+      )!,
     );
   }
 
@@ -525,15 +684,16 @@ class EventItem extends DataClass implements Insertable<EventItem> {
   final int campusId;
   final String? location;
   final DateTime cachedAt;
-  const EventItem(
-      {required this.id,
-      this.title,
-      this.description,
-      required this.start,
-      required this.end,
-      required this.campusId,
-      this.location,
-      required this.cachedAt});
+  const EventItem({
+    required this.id,
+    this.title,
+    this.description,
+    required this.start,
+    required this.end,
+    required this.campusId,
+    this.location,
+    required this.cachedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -557,8 +717,9 @@ class EventItem extends DataClass implements Insertable<EventItem> {
   EventItemsCompanion toCompanion(bool nullToAbsent) {
     return EventItemsCompanion(
       id: Value(id),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      title: title == null && nullToAbsent
+          ? const Value.absent()
+          : Value(title),
       description: description == null && nullToAbsent
           ? const Value.absent()
           : Value(description),
@@ -572,8 +733,10 @@ class EventItem extends DataClass implements Insertable<EventItem> {
     );
   }
 
-  factory EventItem.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory EventItem.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return EventItem(
       id: serializer.fromJson<int>(json['id']),
@@ -601,31 +764,32 @@ class EventItem extends DataClass implements Insertable<EventItem> {
     };
   }
 
-  EventItem copyWith(
-          {int? id,
-          Value<String?> title = const Value.absent(),
-          Value<String?> description = const Value.absent(),
-          DateTime? start,
-          DateTime? end,
-          int? campusId,
-          Value<String?> location = const Value.absent(),
-          DateTime? cachedAt}) =>
-      EventItem(
-        id: id ?? this.id,
-        title: title.present ? title.value : this.title,
-        description: description.present ? description.value : this.description,
-        start: start ?? this.start,
-        end: end ?? this.end,
-        campusId: campusId ?? this.campusId,
-        location: location.present ? location.value : this.location,
-        cachedAt: cachedAt ?? this.cachedAt,
-      );
+  EventItem copyWith({
+    int? id,
+    Value<String?> title = const Value.absent(),
+    Value<String?> description = const Value.absent(),
+    DateTime? start,
+    DateTime? end,
+    int? campusId,
+    Value<String?> location = const Value.absent(),
+    DateTime? cachedAt,
+  }) => EventItem(
+    id: id ?? this.id,
+    title: title.present ? title.value : this.title,
+    description: description.present ? description.value : this.description,
+    start: start ?? this.start,
+    end: end ?? this.end,
+    campusId: campusId ?? this.campusId,
+    location: location.present ? location.value : this.location,
+    cachedAt: cachedAt ?? this.cachedAt,
+  );
   EventItem copyWithCompanion(EventItemsCompanion data) {
     return EventItem(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
-      description:
-          data.description.present ? data.description.value : this.description,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
       start: data.start.present ? data.start.value : this.start,
       end: data.end.present ? data.end.value : this.end,
       campusId: data.campusId.present ? data.campusId.value : this.campusId,
@@ -651,7 +815,15 @@ class EventItem extends DataClass implements Insertable<EventItem> {
 
   @override
   int get hashCode => Object.hash(
-      id, title, description, start, end, campusId, location, cachedAt);
+    id,
+    title,
+    description,
+    start,
+    end,
+    campusId,
+    location,
+    cachedAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -694,10 +866,10 @@ class EventItemsCompanion extends UpdateCompanion<EventItem> {
     required int campusId,
     this.location = const Value.absent(),
     required DateTime cachedAt,
-  })  : start = Value(start),
-        end = Value(end),
-        campusId = Value(campusId),
-        cachedAt = Value(cachedAt);
+  }) : start = Value(start),
+       end = Value(end),
+       campusId = Value(campusId),
+       cachedAt = Value(cachedAt);
   static Insertable<EventItem> custom({
     Expression<int>? id,
     Expression<String>? title,
@@ -720,15 +892,16 @@ class EventItemsCompanion extends UpdateCompanion<EventItem> {
     });
   }
 
-  EventItemsCompanion copyWith(
-      {Value<int>? id,
-      Value<String?>? title,
-      Value<String?>? description,
-      Value<DateTime>? start,
-      Value<DateTime>? end,
-      Value<int>? campusId,
-      Value<String?>? location,
-      Value<DateTime>? cachedAt}) {
+  EventItemsCompanion copyWith({
+    Value<int>? id,
+    Value<String?>? title,
+    Value<String?>? description,
+    Value<DateTime>? start,
+    Value<DateTime>? end,
+    Value<int>? campusId,
+    Value<String?>? location,
+    Value<DateTime>? cachedAt,
+  }) {
     return EventItemsCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -796,47 +969,82 @@ class $SchoolItemsTable extends SchoolItems
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+    'name',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
-      'email', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _websiteMeta =
-      const VerificationMeta('website');
+    'email',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _websiteMeta = const VerificationMeta(
+    'website',
+  );
   @override
   late final GeneratedColumn<String> website = GeneratedColumn<String>(
-      'website', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _phoneNumberMeta =
-      const VerificationMeta('phoneNumber');
+    'website',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _phoneNumberMeta = const VerificationMeta(
+    'phoneNumber',
+  );
   @override
   late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
-      'phone_number', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _cachedAtMeta =
-      const VerificationMeta('cachedAt');
+    'phone_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cachedAtMeta = const VerificationMeta(
+    'cachedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> cachedAt = GeneratedColumn<DateTime>(
-      'cached_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+    'cached_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, email, website, phoneNumber, cachedAt];
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    email,
+    website,
+    phoneNumber,
+    cachedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'school_items';
   @override
-  VerificationContext validateIntegrity(Insertable<SchoolItem> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<SchoolItem> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -844,31 +1052,42 @@ class $SchoolItemsTable extends SchoolItems
     }
     if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     }
     if (data.containsKey('email')) {
       context.handle(
-          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+        _emailMeta,
+        email.isAcceptableOrUnknown(data['email']!, _emailMeta),
+      );
     } else if (isInserting) {
       context.missing(_emailMeta);
     }
     if (data.containsKey('website')) {
-      context.handle(_websiteMeta,
-          website.isAcceptableOrUnknown(data['website']!, _websiteMeta));
+      context.handle(
+        _websiteMeta,
+        website.isAcceptableOrUnknown(data['website']!, _websiteMeta),
+      );
     } else if (isInserting) {
       context.missing(_websiteMeta);
     }
     if (data.containsKey('phone_number')) {
       context.handle(
+        _phoneNumberMeta,
+        phoneNumber.isAcceptableOrUnknown(
+          data['phone_number']!,
           _phoneNumberMeta,
-          phoneNumber.isAcceptableOrUnknown(
-              data['phone_number']!, _phoneNumberMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_phoneNumberMeta);
     }
     if (data.containsKey('cached_at')) {
-      context.handle(_cachedAtMeta,
-          cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta));
+      context.handle(
+        _cachedAtMeta,
+        cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_cachedAtMeta);
     }
@@ -881,18 +1100,30 @@ class $SchoolItemsTable extends SchoolItems
   SchoolItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return SchoolItem(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name']),
-      email: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
-      website: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}website'])!,
-      phoneNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}phone_number'])!,
-      cachedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}cached_at'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      ),
+      email: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}email'],
+      )!,
+      website: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}website'],
+      )!,
+      phoneNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phone_number'],
+      )!,
+      cachedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}cached_at'],
+      )!,
     );
   }
 
@@ -909,13 +1140,14 @@ class SchoolItem extends DataClass implements Insertable<SchoolItem> {
   final String website;
   final String phoneNumber;
   final DateTime cachedAt;
-  const SchoolItem(
-      {required this.id,
-      this.name,
-      required this.email,
-      required this.website,
-      required this.phoneNumber,
-      required this.cachedAt});
+  const SchoolItem({
+    required this.id,
+    this.name,
+    required this.email,
+    required this.website,
+    required this.phoneNumber,
+    required this.cachedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -941,8 +1173,10 @@ class SchoolItem extends DataClass implements Insertable<SchoolItem> {
     );
   }
 
-  factory SchoolItem.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory SchoolItem.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return SchoolItem(
       id: serializer.fromJson<int>(json['id']),
@@ -966,29 +1200,30 @@ class SchoolItem extends DataClass implements Insertable<SchoolItem> {
     };
   }
 
-  SchoolItem copyWith(
-          {int? id,
-          Value<String?> name = const Value.absent(),
-          String? email,
-          String? website,
-          String? phoneNumber,
-          DateTime? cachedAt}) =>
-      SchoolItem(
-        id: id ?? this.id,
-        name: name.present ? name.value : this.name,
-        email: email ?? this.email,
-        website: website ?? this.website,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-        cachedAt: cachedAt ?? this.cachedAt,
-      );
+  SchoolItem copyWith({
+    int? id,
+    Value<String?> name = const Value.absent(),
+    String? email,
+    String? website,
+    String? phoneNumber,
+    DateTime? cachedAt,
+  }) => SchoolItem(
+    id: id ?? this.id,
+    name: name.present ? name.value : this.name,
+    email: email ?? this.email,
+    website: website ?? this.website,
+    phoneNumber: phoneNumber ?? this.phoneNumber,
+    cachedAt: cachedAt ?? this.cachedAt,
+  );
   SchoolItem copyWithCompanion(SchoolItemsCompanion data) {
     return SchoolItem(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
       email: data.email.present ? data.email.value : this.email,
       website: data.website.present ? data.website.value : this.website,
-      phoneNumber:
-          data.phoneNumber.present ? data.phoneNumber.value : this.phoneNumber,
+      phoneNumber: data.phoneNumber.present
+          ? data.phoneNumber.value
+          : this.phoneNumber,
       cachedAt: data.cachedAt.present ? data.cachedAt.value : this.cachedAt,
     );
   }
@@ -1043,10 +1278,10 @@ class SchoolItemsCompanion extends UpdateCompanion<SchoolItem> {
     required String website,
     required String phoneNumber,
     required DateTime cachedAt,
-  })  : email = Value(email),
-        website = Value(website),
-        phoneNumber = Value(phoneNumber),
-        cachedAt = Value(cachedAt);
+  }) : email = Value(email),
+       website = Value(website),
+       phoneNumber = Value(phoneNumber),
+       cachedAt = Value(cachedAt);
   static Insertable<SchoolItem> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -1065,13 +1300,14 @@ class SchoolItemsCompanion extends UpdateCompanion<SchoolItem> {
     });
   }
 
-  SchoolItemsCompanion copyWith(
-      {Value<int>? id,
-      Value<String?>? name,
-      Value<String>? email,
-      Value<String>? website,
-      Value<String>? phoneNumber,
-      Value<DateTime>? cachedAt}) {
+  SchoolItemsCompanion copyWith({
+    Value<int>? id,
+    Value<String?>? name,
+    Value<String>? email,
+    Value<String>? website,
+    Value<String>? phoneNumber,
+    Value<DateTime>? cachedAt,
+  }) {
     return SchoolItemsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -1129,48 +1365,84 @@ class $AnnouncementItemsTable extends AnnouncementItems
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _messageMeta =
-      const VerificationMeta('message');
+    'title',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _messageMeta = const VerificationMeta(
+    'message',
+  );
   @override
   late final GeneratedColumn<String> message = GeneratedColumn<String>(
-      'message', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _datePostedMeta =
-      const VerificationMeta('datePosted');
+    'message',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _datePostedMeta = const VerificationMeta(
+    'datePosted',
+  );
   @override
   late final GeneratedColumn<DateTime> datePosted = GeneratedColumn<DateTime>(
-      'date_posted', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _schoolIdMeta =
-      const VerificationMeta('schoolId');
+    'date_posted',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _schoolIdMeta = const VerificationMeta(
+    'schoolId',
+  );
   @override
   late final GeneratedColumn<int> schoolId = GeneratedColumn<int>(
-      'school_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _cachedAtMeta =
-      const VerificationMeta('cachedAt');
+    'school_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cachedAtMeta = const VerificationMeta(
+    'cachedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> cachedAt = GeneratedColumn<DateTime>(
-      'cached_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+    'cached_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, title, message, datePosted, schoolId, cachedAt];
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    message,
+    datePosted,
+    schoolId,
+    cachedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'announcement_items';
   @override
-  VerificationContext validateIntegrity(Insertable<AnnouncementItem> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<AnnouncementItem> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -1178,29 +1450,37 @@ class $AnnouncementItemsTable extends AnnouncementItems
     }
     if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     }
     if (data.containsKey('message')) {
-      context.handle(_messageMeta,
-          message.isAcceptableOrUnknown(data['message']!, _messageMeta));
+      context.handle(
+        _messageMeta,
+        message.isAcceptableOrUnknown(data['message']!, _messageMeta),
+      );
     }
     if (data.containsKey('date_posted')) {
       context.handle(
-          _datePostedMeta,
-          datePosted.isAcceptableOrUnknown(
-              data['date_posted']!, _datePostedMeta));
+        _datePostedMeta,
+        datePosted.isAcceptableOrUnknown(data['date_posted']!, _datePostedMeta),
+      );
     } else if (isInserting) {
       context.missing(_datePostedMeta);
     }
     if (data.containsKey('school_id')) {
-      context.handle(_schoolIdMeta,
-          schoolId.isAcceptableOrUnknown(data['school_id']!, _schoolIdMeta));
+      context.handle(
+        _schoolIdMeta,
+        schoolId.isAcceptableOrUnknown(data['school_id']!, _schoolIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_schoolIdMeta);
     }
     if (data.containsKey('cached_at')) {
-      context.handle(_cachedAtMeta,
-          cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta));
+      context.handle(
+        _cachedAtMeta,
+        cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_cachedAtMeta);
     }
@@ -1213,18 +1493,30 @@ class $AnnouncementItemsTable extends AnnouncementItems
   AnnouncementItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return AnnouncementItem(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title']),
-      message: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}message']),
-      datePosted: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}date_posted'])!,
-      schoolId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}school_id'])!,
-      cachedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}cached_at'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      ),
+      message: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}message'],
+      ),
+      datePosted: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}date_posted'],
+      )!,
+      schoolId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}school_id'],
+      )!,
+      cachedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}cached_at'],
+      )!,
     );
   }
 
@@ -1242,13 +1534,14 @@ class AnnouncementItem extends DataClass
   final DateTime datePosted;
   final int schoolId;
   final DateTime cachedAt;
-  const AnnouncementItem(
-      {required this.id,
-      this.title,
-      this.message,
-      required this.datePosted,
-      required this.schoolId,
-      required this.cachedAt});
+  const AnnouncementItem({
+    required this.id,
+    this.title,
+    this.message,
+    required this.datePosted,
+    required this.schoolId,
+    required this.cachedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1268,8 +1561,9 @@ class AnnouncementItem extends DataClass
   AnnouncementItemsCompanion toCompanion(bool nullToAbsent) {
     return AnnouncementItemsCompanion(
       id: Value(id),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      title: title == null && nullToAbsent
+          ? const Value.absent()
+          : Value(title),
       message: message == null && nullToAbsent
           ? const Value.absent()
           : Value(message),
@@ -1279,8 +1573,10 @@ class AnnouncementItem extends DataClass
     );
   }
 
-  factory AnnouncementItem.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory AnnouncementItem.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return AnnouncementItem(
       id: serializer.fromJson<int>(json['id']),
@@ -1304,28 +1600,29 @@ class AnnouncementItem extends DataClass
     };
   }
 
-  AnnouncementItem copyWith(
-          {int? id,
-          Value<String?> title = const Value.absent(),
-          Value<String?> message = const Value.absent(),
-          DateTime? datePosted,
-          int? schoolId,
-          DateTime? cachedAt}) =>
-      AnnouncementItem(
-        id: id ?? this.id,
-        title: title.present ? title.value : this.title,
-        message: message.present ? message.value : this.message,
-        datePosted: datePosted ?? this.datePosted,
-        schoolId: schoolId ?? this.schoolId,
-        cachedAt: cachedAt ?? this.cachedAt,
-      );
+  AnnouncementItem copyWith({
+    int? id,
+    Value<String?> title = const Value.absent(),
+    Value<String?> message = const Value.absent(),
+    DateTime? datePosted,
+    int? schoolId,
+    DateTime? cachedAt,
+  }) => AnnouncementItem(
+    id: id ?? this.id,
+    title: title.present ? title.value : this.title,
+    message: message.present ? message.value : this.message,
+    datePosted: datePosted ?? this.datePosted,
+    schoolId: schoolId ?? this.schoolId,
+    cachedAt: cachedAt ?? this.cachedAt,
+  );
   AnnouncementItem copyWithCompanion(AnnouncementItemsCompanion data) {
     return AnnouncementItem(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
       message: data.message.present ? data.message.value : this.message,
-      datePosted:
-          data.datePosted.present ? data.datePosted.value : this.datePosted,
+      datePosted: data.datePosted.present
+          ? data.datePosted.value
+          : this.datePosted,
       schoolId: data.schoolId.present ? data.schoolId.value : this.schoolId,
       cachedAt: data.cachedAt.present ? data.cachedAt.value : this.cachedAt,
     );
@@ -1381,9 +1678,9 @@ class AnnouncementItemsCompanion extends UpdateCompanion<AnnouncementItem> {
     required DateTime datePosted,
     required int schoolId,
     required DateTime cachedAt,
-  })  : datePosted = Value(datePosted),
-        schoolId = Value(schoolId),
-        cachedAt = Value(cachedAt);
+  }) : datePosted = Value(datePosted),
+       schoolId = Value(schoolId),
+       cachedAt = Value(cachedAt);
   static Insertable<AnnouncementItem> custom({
     Expression<int>? id,
     Expression<String>? title,
@@ -1402,13 +1699,14 @@ class AnnouncementItemsCompanion extends UpdateCompanion<AnnouncementItem> {
     });
   }
 
-  AnnouncementItemsCompanion copyWith(
-      {Value<int>? id,
-      Value<String?>? title,
-      Value<String?>? message,
-      Value<DateTime>? datePosted,
-      Value<int>? schoolId,
-      Value<DateTime>? cachedAt}) {
+  AnnouncementItemsCompanion copyWith({
+    Value<int>? id,
+    Value<String?>? title,
+    Value<String?>? message,
+    Value<DateTime>? datePosted,
+    Value<int>? schoolId,
+    Value<DateTime>? cachedAt,
+  }) {
     return AnnouncementItemsCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -1466,93 +1764,147 @@ class $CafeteriaItemsTable extends CafeteriaItems
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _categoryMeta =
-      const VerificationMeta('category');
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _categoryMeta = const VerificationMeta(
+    'category',
+  );
   @override
   late final GeneratedColumn<int> category = GeneratedColumn<int>(
-      'category', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'category',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _iconNameMeta =
-      const VerificationMeta('iconName');
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _iconNameMeta = const VerificationMeta(
+    'iconName',
+  );
   @override
   late final GeneratedColumn<String> iconName = GeneratedColumn<String>(
-      'icon_name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'icon_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _menuIdMeta = const VerificationMeta('menuId');
   @override
   late final GeneratedColumn<int> menuId = GeneratedColumn<int>(
-      'menu_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _cachedAtMeta =
-      const VerificationMeta('cachedAt');
+    'menu_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cachedAtMeta = const VerificationMeta(
+    'cachedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> cachedAt = GeneratedColumn<DateTime>(
-      'cached_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+    'cached_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, category, name, description, iconName, menuId, cachedAt];
+  List<GeneratedColumn> get $columns => [
+    id,
+    category,
+    name,
+    description,
+    iconName,
+    menuId,
+    cachedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'cafeteria_items';
   @override
-  VerificationContext validateIntegrity(Insertable<CafeteriaItem> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<CafeteriaItem> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('category')) {
-      context.handle(_categoryMeta,
-          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+      context.handle(
+        _categoryMeta,
+        category.isAcceptableOrUnknown(data['category']!, _categoryMeta),
+      );
     } else if (isInserting) {
       context.missing(_categoryMeta);
     }
     if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('description')) {
       context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
           _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_descriptionMeta);
     }
     if (data.containsKey('icon_name')) {
-      context.handle(_iconNameMeta,
-          iconName.isAcceptableOrUnknown(data['icon_name']!, _iconNameMeta));
+      context.handle(
+        _iconNameMeta,
+        iconName.isAcceptableOrUnknown(data['icon_name']!, _iconNameMeta),
+      );
     } else if (isInserting) {
       context.missing(_iconNameMeta);
     }
     if (data.containsKey('menu_id')) {
-      context.handle(_menuIdMeta,
-          menuId.isAcceptableOrUnknown(data['menu_id']!, _menuIdMeta));
+      context.handle(
+        _menuIdMeta,
+        menuId.isAcceptableOrUnknown(data['menu_id']!, _menuIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_menuIdMeta);
     }
     if (data.containsKey('cached_at')) {
-      context.handle(_cachedAtMeta,
-          cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta));
+      context.handle(
+        _cachedAtMeta,
+        cachedAt.isAcceptableOrUnknown(data['cached_at']!, _cachedAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_cachedAtMeta);
     }
@@ -1565,20 +1917,34 @@ class $CafeteriaItemsTable extends CafeteriaItems
   CafeteriaItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CafeteriaItem(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      category: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}category'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
-      iconName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}icon_name'])!,
-      menuId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}menu_id'])!,
-      cachedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}cached_at'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      category: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}category'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      iconName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon_name'],
+      )!,
+      menuId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}menu_id'],
+      )!,
+      cachedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}cached_at'],
+      )!,
     );
   }
 
@@ -1596,14 +1962,15 @@ class CafeteriaItem extends DataClass implements Insertable<CafeteriaItem> {
   final String iconName;
   final int menuId;
   final DateTime cachedAt;
-  const CafeteriaItem(
-      {required this.id,
-      required this.category,
-      required this.name,
-      required this.description,
-      required this.iconName,
-      required this.menuId,
-      required this.cachedAt});
+  const CafeteriaItem({
+    required this.id,
+    required this.category,
+    required this.name,
+    required this.description,
+    required this.iconName,
+    required this.menuId,
+    required this.cachedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1629,8 +1996,10 @@ class CafeteriaItem extends DataClass implements Insertable<CafeteriaItem> {
     );
   }
 
-  factory CafeteriaItem.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory CafeteriaItem.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CafeteriaItem(
       id: serializer.fromJson<int>(json['id']),
@@ -1656,30 +2025,31 @@ class CafeteriaItem extends DataClass implements Insertable<CafeteriaItem> {
     };
   }
 
-  CafeteriaItem copyWith(
-          {int? id,
-          int? category,
-          String? name,
-          String? description,
-          String? iconName,
-          int? menuId,
-          DateTime? cachedAt}) =>
-      CafeteriaItem(
-        id: id ?? this.id,
-        category: category ?? this.category,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        iconName: iconName ?? this.iconName,
-        menuId: menuId ?? this.menuId,
-        cachedAt: cachedAt ?? this.cachedAt,
-      );
+  CafeteriaItem copyWith({
+    int? id,
+    int? category,
+    String? name,
+    String? description,
+    String? iconName,
+    int? menuId,
+    DateTime? cachedAt,
+  }) => CafeteriaItem(
+    id: id ?? this.id,
+    category: category ?? this.category,
+    name: name ?? this.name,
+    description: description ?? this.description,
+    iconName: iconName ?? this.iconName,
+    menuId: menuId ?? this.menuId,
+    cachedAt: cachedAt ?? this.cachedAt,
+  );
   CafeteriaItem copyWithCompanion(CafeteriaItemsCompanion data) {
     return CafeteriaItem(
       id: data.id.present ? data.id.value : this.id,
       category: data.category.present ? data.category.value : this.category,
       name: data.name.present ? data.name.value : this.name,
-      description:
-          data.description.present ? data.description.value : this.description,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
       iconName: data.iconName.present ? data.iconName.value : this.iconName,
       menuId: data.menuId.present ? data.menuId.value : this.menuId,
       cachedAt: data.cachedAt.present ? data.cachedAt.value : this.cachedAt,
@@ -1741,12 +2111,12 @@ class CafeteriaItemsCompanion extends UpdateCompanion<CafeteriaItem> {
     required String iconName,
     required int menuId,
     required DateTime cachedAt,
-  })  : category = Value(category),
-        name = Value(name),
-        description = Value(description),
-        iconName = Value(iconName),
-        menuId = Value(menuId),
-        cachedAt = Value(cachedAt);
+  }) : category = Value(category),
+       name = Value(name),
+       description = Value(description),
+       iconName = Value(iconName),
+       menuId = Value(menuId),
+       cachedAt = Value(cachedAt);
   static Insertable<CafeteriaItem> custom({
     Expression<int>? id,
     Expression<int>? category,
@@ -1767,14 +2137,15 @@ class CafeteriaItemsCompanion extends UpdateCompanion<CafeteriaItem> {
     });
   }
 
-  CafeteriaItemsCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? category,
-      Value<String>? name,
-      Value<String>? description,
-      Value<String>? iconName,
-      Value<int>? menuId,
-      Value<DateTime>? cachedAt}) {
+  CafeteriaItemsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? category,
+    Value<String>? name,
+    Value<String>? description,
+    Value<String>? iconName,
+    Value<int>? menuId,
+    Value<DateTime>? cachedAt,
+  }) {
     return CafeteriaItemsCompanion(
       id: id ?? this.id,
       category: category ?? this.category,
@@ -1841,28 +2212,35 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [newsItems, eventItems, schoolItems, announcementItems, cafeteriaItems];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    newsItems,
+    eventItems,
+    schoolItems,
+    announcementItems,
+    cafeteriaItems,
+  ];
 }
 
-typedef $$NewsItemsTableCreateCompanionBuilder = NewsItemsCompanion Function({
-  Value<int> id,
-  Value<String?> headline,
-  Value<String?> content,
-  required DateTime datePublished,
-  Value<String?> author,
-  required int schoolId,
-  required DateTime cachedAt,
-});
-typedef $$NewsItemsTableUpdateCompanionBuilder = NewsItemsCompanion Function({
-  Value<int> id,
-  Value<String?> headline,
-  Value<String?> content,
-  Value<DateTime> datePublished,
-  Value<String?> author,
-  Value<int> schoolId,
-  Value<DateTime> cachedAt,
-});
+typedef $$NewsItemsTableCreateCompanionBuilder =
+    NewsItemsCompanion Function({
+      Value<int> id,
+      Value<String?> headline,
+      Value<String?> content,
+      required DateTime datePublished,
+      Value<String?> author,
+      required int schoolId,
+      required DateTime cachedAt,
+    });
+typedef $$NewsItemsTableUpdateCompanionBuilder =
+    NewsItemsCompanion Function({
+      Value<int> id,
+      Value<String?> headline,
+      Value<String?> content,
+      Value<DateTime> datePublished,
+      Value<String?> author,
+      Value<int> schoolId,
+      Value<DateTime> cachedAt,
+    });
 
 class $$NewsItemsTableFilterComposer
     extends Composer<_$AppDatabase, $NewsItemsTable> {
@@ -1874,25 +2252,39 @@ class $$NewsItemsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get headline => $composableBuilder(
-      column: $table.headline, builder: (column) => ColumnFilters(column));
+    column: $table.headline,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get content => $composableBuilder(
-      column: $table.content, builder: (column) => ColumnFilters(column));
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get datePublished => $composableBuilder(
-      column: $table.datePublished, builder: (column) => ColumnFilters(column));
+    column: $table.datePublished,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get author => $composableBuilder(
-      column: $table.author, builder: (column) => ColumnFilters(column));
+    column: $table.author,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get schoolId => $composableBuilder(
-      column: $table.schoolId, builder: (column) => ColumnFilters(column));
+    column: $table.schoolId,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnFilters(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$NewsItemsTableOrderingComposer
@@ -1905,26 +2297,39 @@ class $$NewsItemsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get headline => $composableBuilder(
-      column: $table.headline, builder: (column) => ColumnOrderings(column));
+    column: $table.headline,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get content => $composableBuilder(
-      column: $table.content, builder: (column) => ColumnOrderings(column));
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get datePublished => $composableBuilder(
-      column: $table.datePublished,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.datePublished,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get author => $composableBuilder(
-      column: $table.author, builder: (column) => ColumnOrderings(column));
+    column: $table.author,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get schoolId => $composableBuilder(
-      column: $table.schoolId, builder: (column) => ColumnOrderings(column));
+    column: $table.schoolId,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnOrderings(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$NewsItemsTableAnnotationComposer
@@ -1946,7 +2351,9 @@ class $$NewsItemsTableAnnotationComposer
       $composableBuilder(column: $table.content, builder: (column) => column);
 
   GeneratedColumn<DateTime> get datePublished => $composableBuilder(
-      column: $table.datePublished, builder: (column) => column);
+    column: $table.datePublished,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get author =>
       $composableBuilder(column: $table.author, builder: (column) => column);
@@ -1958,20 +2365,24 @@ class $$NewsItemsTableAnnotationComposer
       $composableBuilder(column: $table.cachedAt, builder: (column) => column);
 }
 
-class $$NewsItemsTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $NewsItemsTable,
-    NewsItem,
-    $$NewsItemsTableFilterComposer,
-    $$NewsItemsTableOrderingComposer,
-    $$NewsItemsTableAnnotationComposer,
-    $$NewsItemsTableCreateCompanionBuilder,
-    $$NewsItemsTableUpdateCompanionBuilder,
-    (NewsItem, BaseReferences<_$AppDatabase, $NewsItemsTable, NewsItem>),
-    NewsItem,
-    PrefetchHooks Function()> {
+class $$NewsItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $NewsItemsTable,
+          NewsItem,
+          $$NewsItemsTableFilterComposer,
+          $$NewsItemsTableOrderingComposer,
+          $$NewsItemsTableAnnotationComposer,
+          $$NewsItemsTableCreateCompanionBuilder,
+          $$NewsItemsTableUpdateCompanionBuilder,
+          (NewsItem, BaseReferences<_$AppDatabase, $NewsItemsTable, NewsItem>),
+          NewsItem,
+          PrefetchHooks Function()
+        > {
   $$NewsItemsTableTableManager(_$AppDatabase db, $NewsItemsTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -1980,81 +2391,86 @@ class $$NewsItemsTableTableManager extends RootTableManager<
               $$NewsItemsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$NewsItemsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> headline = const Value.absent(),
-            Value<String?> content = const Value.absent(),
-            Value<DateTime> datePublished = const Value.absent(),
-            Value<String?> author = const Value.absent(),
-            Value<int> schoolId = const Value.absent(),
-            Value<DateTime> cachedAt = const Value.absent(),
-          }) =>
-              NewsItemsCompanion(
-            id: id,
-            headline: headline,
-            content: content,
-            datePublished: datePublished,
-            author: author,
-            schoolId: schoolId,
-            cachedAt: cachedAt,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> headline = const Value.absent(),
-            Value<String?> content = const Value.absent(),
-            required DateTime datePublished,
-            Value<String?> author = const Value.absent(),
-            required int schoolId,
-            required DateTime cachedAt,
-          }) =>
-              NewsItemsCompanion.insert(
-            id: id,
-            headline: headline,
-            content: content,
-            datePublished: datePublished,
-            author: author,
-            schoolId: schoolId,
-            cachedAt: cachedAt,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> headline = const Value.absent(),
+                Value<String?> content = const Value.absent(),
+                Value<DateTime> datePublished = const Value.absent(),
+                Value<String?> author = const Value.absent(),
+                Value<int> schoolId = const Value.absent(),
+                Value<DateTime> cachedAt = const Value.absent(),
+              }) => NewsItemsCompanion(
+                id: id,
+                headline: headline,
+                content: content,
+                datePublished: datePublished,
+                author: author,
+                schoolId: schoolId,
+                cachedAt: cachedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> headline = const Value.absent(),
+                Value<String?> content = const Value.absent(),
+                required DateTime datePublished,
+                Value<String?> author = const Value.absent(),
+                required int schoolId,
+                required DateTime cachedAt,
+              }) => NewsItemsCompanion.insert(
+                id: id,
+                headline: headline,
+                content: content,
+                datePublished: datePublished,
+                author: author,
+                schoolId: schoolId,
+                cachedAt: cachedAt,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$NewsItemsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $NewsItemsTable,
-    NewsItem,
-    $$NewsItemsTableFilterComposer,
-    $$NewsItemsTableOrderingComposer,
-    $$NewsItemsTableAnnotationComposer,
-    $$NewsItemsTableCreateCompanionBuilder,
-    $$NewsItemsTableUpdateCompanionBuilder,
-    (NewsItem, BaseReferences<_$AppDatabase, $NewsItemsTable, NewsItem>),
-    NewsItem,
-    PrefetchHooks Function()>;
-typedef $$EventItemsTableCreateCompanionBuilder = EventItemsCompanion Function({
-  Value<int> id,
-  Value<String?> title,
-  Value<String?> description,
-  required DateTime start,
-  required DateTime end,
-  required int campusId,
-  Value<String?> location,
-  required DateTime cachedAt,
-});
-typedef $$EventItemsTableUpdateCompanionBuilder = EventItemsCompanion Function({
-  Value<int> id,
-  Value<String?> title,
-  Value<String?> description,
-  Value<DateTime> start,
-  Value<DateTime> end,
-  Value<int> campusId,
-  Value<String?> location,
-  Value<DateTime> cachedAt,
-});
+typedef $$NewsItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $NewsItemsTable,
+      NewsItem,
+      $$NewsItemsTableFilterComposer,
+      $$NewsItemsTableOrderingComposer,
+      $$NewsItemsTableAnnotationComposer,
+      $$NewsItemsTableCreateCompanionBuilder,
+      $$NewsItemsTableUpdateCompanionBuilder,
+      (NewsItem, BaseReferences<_$AppDatabase, $NewsItemsTable, NewsItem>),
+      NewsItem,
+      PrefetchHooks Function()
+    >;
+typedef $$EventItemsTableCreateCompanionBuilder =
+    EventItemsCompanion Function({
+      Value<int> id,
+      Value<String?> title,
+      Value<String?> description,
+      required DateTime start,
+      required DateTime end,
+      required int campusId,
+      Value<String?> location,
+      required DateTime cachedAt,
+    });
+typedef $$EventItemsTableUpdateCompanionBuilder =
+    EventItemsCompanion Function({
+      Value<int> id,
+      Value<String?> title,
+      Value<String?> description,
+      Value<DateTime> start,
+      Value<DateTime> end,
+      Value<int> campusId,
+      Value<String?> location,
+      Value<DateTime> cachedAt,
+    });
 
 class $$EventItemsTableFilterComposer
     extends Composer<_$AppDatabase, $EventItemsTable> {
@@ -2066,28 +2482,44 @@ class $$EventItemsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnFilters(column));
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnFilters(column));
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get start => $composableBuilder(
-      column: $table.start, builder: (column) => ColumnFilters(column));
+    column: $table.start,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get end => $composableBuilder(
-      column: $table.end, builder: (column) => ColumnFilters(column));
+    column: $table.end,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get campusId => $composableBuilder(
-      column: $table.campusId, builder: (column) => ColumnFilters(column));
+    column: $table.campusId,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get location => $composableBuilder(
-      column: $table.location, builder: (column) => ColumnFilters(column));
+    column: $table.location,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnFilters(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$EventItemsTableOrderingComposer
@@ -2100,28 +2532,44 @@ class $$EventItemsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnOrderings(column));
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnOrderings(column));
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get start => $composableBuilder(
-      column: $table.start, builder: (column) => ColumnOrderings(column));
+    column: $table.start,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get end => $composableBuilder(
-      column: $table.end, builder: (column) => ColumnOrderings(column));
+    column: $table.end,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get campusId => $composableBuilder(
-      column: $table.campusId, builder: (column) => ColumnOrderings(column));
+    column: $table.campusId,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get location => $composableBuilder(
-      column: $table.location, builder: (column) => ColumnOrderings(column));
+    column: $table.location,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnOrderings(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$EventItemsTableAnnotationComposer
@@ -2140,7 +2588,9 @@ class $$EventItemsTableAnnotationComposer
       $composableBuilder(column: $table.title, builder: (column) => column);
 
   GeneratedColumn<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => column);
+    column: $table.description,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<DateTime> get start =>
       $composableBuilder(column: $table.start, builder: (column) => column);
@@ -2158,20 +2608,27 @@ class $$EventItemsTableAnnotationComposer
       $composableBuilder(column: $table.cachedAt, builder: (column) => column);
 }
 
-class $$EventItemsTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $EventItemsTable,
-    EventItem,
-    $$EventItemsTableFilterComposer,
-    $$EventItemsTableOrderingComposer,
-    $$EventItemsTableAnnotationComposer,
-    $$EventItemsTableCreateCompanionBuilder,
-    $$EventItemsTableUpdateCompanionBuilder,
-    (EventItem, BaseReferences<_$AppDatabase, $EventItemsTable, EventItem>),
-    EventItem,
-    PrefetchHooks Function()> {
+class $$EventItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $EventItemsTable,
+          EventItem,
+          $$EventItemsTableFilterComposer,
+          $$EventItemsTableOrderingComposer,
+          $$EventItemsTableAnnotationComposer,
+          $$EventItemsTableCreateCompanionBuilder,
+          $$EventItemsTableUpdateCompanionBuilder,
+          (
+            EventItem,
+            BaseReferences<_$AppDatabase, $EventItemsTable, EventItem>,
+          ),
+          EventItem,
+          PrefetchHooks Function()
+        > {
   $$EventItemsTableTableManager(_$AppDatabase db, $EventItemsTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -2180,83 +2637,86 @@ class $$EventItemsTableTableManager extends RootTableManager<
               $$EventItemsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$EventItemsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> title = const Value.absent(),
-            Value<String?> description = const Value.absent(),
-            Value<DateTime> start = const Value.absent(),
-            Value<DateTime> end = const Value.absent(),
-            Value<int> campusId = const Value.absent(),
-            Value<String?> location = const Value.absent(),
-            Value<DateTime> cachedAt = const Value.absent(),
-          }) =>
-              EventItemsCompanion(
-            id: id,
-            title: title,
-            description: description,
-            start: start,
-            end: end,
-            campusId: campusId,
-            location: location,
-            cachedAt: cachedAt,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> title = const Value.absent(),
-            Value<String?> description = const Value.absent(),
-            required DateTime start,
-            required DateTime end,
-            required int campusId,
-            Value<String?> location = const Value.absent(),
-            required DateTime cachedAt,
-          }) =>
-              EventItemsCompanion.insert(
-            id: id,
-            title: title,
-            description: description,
-            start: start,
-            end: end,
-            campusId: campusId,
-            location: location,
-            cachedAt: cachedAt,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> title = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<DateTime> start = const Value.absent(),
+                Value<DateTime> end = const Value.absent(),
+                Value<int> campusId = const Value.absent(),
+                Value<String?> location = const Value.absent(),
+                Value<DateTime> cachedAt = const Value.absent(),
+              }) => EventItemsCompanion(
+                id: id,
+                title: title,
+                description: description,
+                start: start,
+                end: end,
+                campusId: campusId,
+                location: location,
+                cachedAt: cachedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> title = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                required DateTime start,
+                required DateTime end,
+                required int campusId,
+                Value<String?> location = const Value.absent(),
+                required DateTime cachedAt,
+              }) => EventItemsCompanion.insert(
+                id: id,
+                title: title,
+                description: description,
+                start: start,
+                end: end,
+                campusId: campusId,
+                location: location,
+                cachedAt: cachedAt,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$EventItemsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $EventItemsTable,
-    EventItem,
-    $$EventItemsTableFilterComposer,
-    $$EventItemsTableOrderingComposer,
-    $$EventItemsTableAnnotationComposer,
-    $$EventItemsTableCreateCompanionBuilder,
-    $$EventItemsTableUpdateCompanionBuilder,
-    (EventItem, BaseReferences<_$AppDatabase, $EventItemsTable, EventItem>),
-    EventItem,
-    PrefetchHooks Function()>;
-typedef $$SchoolItemsTableCreateCompanionBuilder = SchoolItemsCompanion
-    Function({
-  Value<int> id,
-  Value<String?> name,
-  required String email,
-  required String website,
-  required String phoneNumber,
-  required DateTime cachedAt,
-});
-typedef $$SchoolItemsTableUpdateCompanionBuilder = SchoolItemsCompanion
-    Function({
-  Value<int> id,
-  Value<String?> name,
-  Value<String> email,
-  Value<String> website,
-  Value<String> phoneNumber,
-  Value<DateTime> cachedAt,
-});
+typedef $$EventItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $EventItemsTable,
+      EventItem,
+      $$EventItemsTableFilterComposer,
+      $$EventItemsTableOrderingComposer,
+      $$EventItemsTableAnnotationComposer,
+      $$EventItemsTableCreateCompanionBuilder,
+      $$EventItemsTableUpdateCompanionBuilder,
+      (EventItem, BaseReferences<_$AppDatabase, $EventItemsTable, EventItem>),
+      EventItem,
+      PrefetchHooks Function()
+    >;
+typedef $$SchoolItemsTableCreateCompanionBuilder =
+    SchoolItemsCompanion Function({
+      Value<int> id,
+      Value<String?> name,
+      required String email,
+      required String website,
+      required String phoneNumber,
+      required DateTime cachedAt,
+    });
+typedef $$SchoolItemsTableUpdateCompanionBuilder =
+    SchoolItemsCompanion Function({
+      Value<int> id,
+      Value<String?> name,
+      Value<String> email,
+      Value<String> website,
+      Value<String> phoneNumber,
+      Value<DateTime> cachedAt,
+    });
 
 class $$SchoolItemsTableFilterComposer
     extends Composer<_$AppDatabase, $SchoolItemsTable> {
@@ -2268,22 +2728,34 @@ class $$SchoolItemsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnFilters(column));
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnFilters(column));
+    column: $table.email,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get website => $composableBuilder(
-      column: $table.website, builder: (column) => ColumnFilters(column));
+    column: $table.website,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get phoneNumber => $composableBuilder(
-      column: $table.phoneNumber, builder: (column) => ColumnFilters(column));
+    column: $table.phoneNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnFilters(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$SchoolItemsTableOrderingComposer
@@ -2296,22 +2768,34 @@ class $$SchoolItemsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnOrderings(column));
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnOrderings(column));
+    column: $table.email,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get website => $composableBuilder(
-      column: $table.website, builder: (column) => ColumnOrderings(column));
+    column: $table.website,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get phoneNumber => $composableBuilder(
-      column: $table.phoneNumber, builder: (column) => ColumnOrderings(column));
+    column: $table.phoneNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnOrderings(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$SchoolItemsTableAnnotationComposer
@@ -2336,26 +2820,35 @@ class $$SchoolItemsTableAnnotationComposer
       $composableBuilder(column: $table.website, builder: (column) => column);
 
   GeneratedColumn<String> get phoneNumber => $composableBuilder(
-      column: $table.phoneNumber, builder: (column) => column);
+    column: $table.phoneNumber,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<DateTime> get cachedAt =>
       $composableBuilder(column: $table.cachedAt, builder: (column) => column);
 }
 
-class $$SchoolItemsTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $SchoolItemsTable,
-    SchoolItem,
-    $$SchoolItemsTableFilterComposer,
-    $$SchoolItemsTableOrderingComposer,
-    $$SchoolItemsTableAnnotationComposer,
-    $$SchoolItemsTableCreateCompanionBuilder,
-    $$SchoolItemsTableUpdateCompanionBuilder,
-    (SchoolItem, BaseReferences<_$AppDatabase, $SchoolItemsTable, SchoolItem>),
-    SchoolItem,
-    PrefetchHooks Function()> {
+class $$SchoolItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SchoolItemsTable,
+          SchoolItem,
+          $$SchoolItemsTableFilterComposer,
+          $$SchoolItemsTableOrderingComposer,
+          $$SchoolItemsTableAnnotationComposer,
+          $$SchoolItemsTableCreateCompanionBuilder,
+          $$SchoolItemsTableUpdateCompanionBuilder,
+          (
+            SchoolItem,
+            BaseReferences<_$AppDatabase, $SchoolItemsTable, SchoolItem>,
+          ),
+          SchoolItem,
+          PrefetchHooks Function()
+        > {
   $$SchoolItemsTableTableManager(_$AppDatabase db, $SchoolItemsTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -2364,75 +2857,81 @@ class $$SchoolItemsTableTableManager extends RootTableManager<
               $$SchoolItemsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$SchoolItemsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> name = const Value.absent(),
-            Value<String> email = const Value.absent(),
-            Value<String> website = const Value.absent(),
-            Value<String> phoneNumber = const Value.absent(),
-            Value<DateTime> cachedAt = const Value.absent(),
-          }) =>
-              SchoolItemsCompanion(
-            id: id,
-            name: name,
-            email: email,
-            website: website,
-            phoneNumber: phoneNumber,
-            cachedAt: cachedAt,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> name = const Value.absent(),
-            required String email,
-            required String website,
-            required String phoneNumber,
-            required DateTime cachedAt,
-          }) =>
-              SchoolItemsCompanion.insert(
-            id: id,
-            name: name,
-            email: email,
-            website: website,
-            phoneNumber: phoneNumber,
-            cachedAt: cachedAt,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> name = const Value.absent(),
+                Value<String> email = const Value.absent(),
+                Value<String> website = const Value.absent(),
+                Value<String> phoneNumber = const Value.absent(),
+                Value<DateTime> cachedAt = const Value.absent(),
+              }) => SchoolItemsCompanion(
+                id: id,
+                name: name,
+                email: email,
+                website: website,
+                phoneNumber: phoneNumber,
+                cachedAt: cachedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> name = const Value.absent(),
+                required String email,
+                required String website,
+                required String phoneNumber,
+                required DateTime cachedAt,
+              }) => SchoolItemsCompanion.insert(
+                id: id,
+                name: name,
+                email: email,
+                website: website,
+                phoneNumber: phoneNumber,
+                cachedAt: cachedAt,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$SchoolItemsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $SchoolItemsTable,
-    SchoolItem,
-    $$SchoolItemsTableFilterComposer,
-    $$SchoolItemsTableOrderingComposer,
-    $$SchoolItemsTableAnnotationComposer,
-    $$SchoolItemsTableCreateCompanionBuilder,
-    $$SchoolItemsTableUpdateCompanionBuilder,
-    (SchoolItem, BaseReferences<_$AppDatabase, $SchoolItemsTable, SchoolItem>),
-    SchoolItem,
-    PrefetchHooks Function()>;
-typedef $$AnnouncementItemsTableCreateCompanionBuilder
-    = AnnouncementItemsCompanion Function({
-  Value<int> id,
-  Value<String?> title,
-  Value<String?> message,
-  required DateTime datePosted,
-  required int schoolId,
-  required DateTime cachedAt,
-});
-typedef $$AnnouncementItemsTableUpdateCompanionBuilder
-    = AnnouncementItemsCompanion Function({
-  Value<int> id,
-  Value<String?> title,
-  Value<String?> message,
-  Value<DateTime> datePosted,
-  Value<int> schoolId,
-  Value<DateTime> cachedAt,
-});
+typedef $$SchoolItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SchoolItemsTable,
+      SchoolItem,
+      $$SchoolItemsTableFilterComposer,
+      $$SchoolItemsTableOrderingComposer,
+      $$SchoolItemsTableAnnotationComposer,
+      $$SchoolItemsTableCreateCompanionBuilder,
+      $$SchoolItemsTableUpdateCompanionBuilder,
+      (
+        SchoolItem,
+        BaseReferences<_$AppDatabase, $SchoolItemsTable, SchoolItem>,
+      ),
+      SchoolItem,
+      PrefetchHooks Function()
+    >;
+typedef $$AnnouncementItemsTableCreateCompanionBuilder =
+    AnnouncementItemsCompanion Function({
+      Value<int> id,
+      Value<String?> title,
+      Value<String?> message,
+      required DateTime datePosted,
+      required int schoolId,
+      required DateTime cachedAt,
+    });
+typedef $$AnnouncementItemsTableUpdateCompanionBuilder =
+    AnnouncementItemsCompanion Function({
+      Value<int> id,
+      Value<String?> title,
+      Value<String?> message,
+      Value<DateTime> datePosted,
+      Value<int> schoolId,
+      Value<DateTime> cachedAt,
+    });
 
 class $$AnnouncementItemsTableFilterComposer
     extends Composer<_$AppDatabase, $AnnouncementItemsTable> {
@@ -2444,22 +2943,34 @@ class $$AnnouncementItemsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnFilters(column));
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get message => $composableBuilder(
-      column: $table.message, builder: (column) => ColumnFilters(column));
+    column: $table.message,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get datePosted => $composableBuilder(
-      column: $table.datePosted, builder: (column) => ColumnFilters(column));
+    column: $table.datePosted,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get schoolId => $composableBuilder(
-      column: $table.schoolId, builder: (column) => ColumnFilters(column));
+    column: $table.schoolId,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnFilters(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$AnnouncementItemsTableOrderingComposer
@@ -2472,22 +2983,34 @@ class $$AnnouncementItemsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get title => $composableBuilder(
-      column: $table.title, builder: (column) => ColumnOrderings(column));
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get message => $composableBuilder(
-      column: $table.message, builder: (column) => ColumnOrderings(column));
+    column: $table.message,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get datePosted => $composableBuilder(
-      column: $table.datePosted, builder: (column) => ColumnOrderings(column));
+    column: $table.datePosted,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get schoolId => $composableBuilder(
-      column: $table.schoolId, builder: (column) => ColumnOrderings(column));
+    column: $table.schoolId,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnOrderings(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$AnnouncementItemsTableAnnotationComposer
@@ -2509,7 +3032,9 @@ class $$AnnouncementItemsTableAnnotationComposer
       $composableBuilder(column: $table.message, builder: (column) => column);
 
   GeneratedColumn<DateTime> get datePosted => $composableBuilder(
-      column: $table.datePosted, builder: (column) => column);
+    column: $table.datePosted,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get schoolId =>
       $composableBuilder(column: $table.schoolId, builder: (column) => column);
@@ -2518,24 +3043,33 @@ class $$AnnouncementItemsTableAnnotationComposer
       $composableBuilder(column: $table.cachedAt, builder: (column) => column);
 }
 
-class $$AnnouncementItemsTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $AnnouncementItemsTable,
-    AnnouncementItem,
-    $$AnnouncementItemsTableFilterComposer,
-    $$AnnouncementItemsTableOrderingComposer,
-    $$AnnouncementItemsTableAnnotationComposer,
-    $$AnnouncementItemsTableCreateCompanionBuilder,
-    $$AnnouncementItemsTableUpdateCompanionBuilder,
-    (
-      AnnouncementItem,
-      BaseReferences<_$AppDatabase, $AnnouncementItemsTable, AnnouncementItem>
-    ),
-    AnnouncementItem,
-    PrefetchHooks Function()> {
+class $$AnnouncementItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AnnouncementItemsTable,
+          AnnouncementItem,
+          $$AnnouncementItemsTableFilterComposer,
+          $$AnnouncementItemsTableOrderingComposer,
+          $$AnnouncementItemsTableAnnotationComposer,
+          $$AnnouncementItemsTableCreateCompanionBuilder,
+          $$AnnouncementItemsTableUpdateCompanionBuilder,
+          (
+            AnnouncementItem,
+            BaseReferences<
+              _$AppDatabase,
+              $AnnouncementItemsTable,
+              AnnouncementItem
+            >,
+          ),
+          AnnouncementItem,
+          PrefetchHooks Function()
+        > {
   $$AnnouncementItemsTableTableManager(
-      _$AppDatabase db, $AnnouncementItemsTable table)
-      : super(TableManagerState(
+    _$AppDatabase db,
+    $AnnouncementItemsTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -2544,81 +3078,90 @@ class $$AnnouncementItemsTableTableManager extends RootTableManager<
               $$AnnouncementItemsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$AnnouncementItemsTableAnnotationComposer(
-                  $db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> title = const Value.absent(),
-            Value<String?> message = const Value.absent(),
-            Value<DateTime> datePosted = const Value.absent(),
-            Value<int> schoolId = const Value.absent(),
-            Value<DateTime> cachedAt = const Value.absent(),
-          }) =>
-              AnnouncementItemsCompanion(
-            id: id,
-            title: title,
-            message: message,
-            datePosted: datePosted,
-            schoolId: schoolId,
-            cachedAt: cachedAt,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> title = const Value.absent(),
-            Value<String?> message = const Value.absent(),
-            required DateTime datePosted,
-            required int schoolId,
-            required DateTime cachedAt,
-          }) =>
-              AnnouncementItemsCompanion.insert(
-            id: id,
-            title: title,
-            message: message,
-            datePosted: datePosted,
-            schoolId: schoolId,
-            cachedAt: cachedAt,
-          ),
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> title = const Value.absent(),
+                Value<String?> message = const Value.absent(),
+                Value<DateTime> datePosted = const Value.absent(),
+                Value<int> schoolId = const Value.absent(),
+                Value<DateTime> cachedAt = const Value.absent(),
+              }) => AnnouncementItemsCompanion(
+                id: id,
+                title: title,
+                message: message,
+                datePosted: datePosted,
+                schoolId: schoolId,
+                cachedAt: cachedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> title = const Value.absent(),
+                Value<String?> message = const Value.absent(),
+                required DateTime datePosted,
+                required int schoolId,
+                required DateTime cachedAt,
+              }) => AnnouncementItemsCompanion.insert(
+                id: id,
+                title: title,
+                message: message,
+                datePosted: datePosted,
+                schoolId: schoolId,
+                cachedAt: cachedAt,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$AnnouncementItemsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $AnnouncementItemsTable,
-    AnnouncementItem,
-    $$AnnouncementItemsTableFilterComposer,
-    $$AnnouncementItemsTableOrderingComposer,
-    $$AnnouncementItemsTableAnnotationComposer,
-    $$AnnouncementItemsTableCreateCompanionBuilder,
-    $$AnnouncementItemsTableUpdateCompanionBuilder,
-    (
+typedef $$AnnouncementItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AnnouncementItemsTable,
       AnnouncementItem,
-      BaseReferences<_$AppDatabase, $AnnouncementItemsTable, AnnouncementItem>
-    ),
-    AnnouncementItem,
-    PrefetchHooks Function()>;
-typedef $$CafeteriaItemsTableCreateCompanionBuilder = CafeteriaItemsCompanion
-    Function({
-  Value<int> id,
-  required int category,
-  required String name,
-  required String description,
-  required String iconName,
-  required int menuId,
-  required DateTime cachedAt,
-});
-typedef $$CafeteriaItemsTableUpdateCompanionBuilder = CafeteriaItemsCompanion
-    Function({
-  Value<int> id,
-  Value<int> category,
-  Value<String> name,
-  Value<String> description,
-  Value<String> iconName,
-  Value<int> menuId,
-  Value<DateTime> cachedAt,
-});
+      $$AnnouncementItemsTableFilterComposer,
+      $$AnnouncementItemsTableOrderingComposer,
+      $$AnnouncementItemsTableAnnotationComposer,
+      $$AnnouncementItemsTableCreateCompanionBuilder,
+      $$AnnouncementItemsTableUpdateCompanionBuilder,
+      (
+        AnnouncementItem,
+        BaseReferences<
+          _$AppDatabase,
+          $AnnouncementItemsTable,
+          AnnouncementItem
+        >,
+      ),
+      AnnouncementItem,
+      PrefetchHooks Function()
+    >;
+typedef $$CafeteriaItemsTableCreateCompanionBuilder =
+    CafeteriaItemsCompanion Function({
+      Value<int> id,
+      required int category,
+      required String name,
+      required String description,
+      required String iconName,
+      required int menuId,
+      required DateTime cachedAt,
+    });
+typedef $$CafeteriaItemsTableUpdateCompanionBuilder =
+    CafeteriaItemsCompanion Function({
+      Value<int> id,
+      Value<int> category,
+      Value<String> name,
+      Value<String> description,
+      Value<String> iconName,
+      Value<int> menuId,
+      Value<DateTime> cachedAt,
+    });
 
 class $$CafeteriaItemsTableFilterComposer
     extends Composer<_$AppDatabase, $CafeteriaItemsTable> {
@@ -2630,25 +3173,39 @@ class $$CafeteriaItemsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get category => $composableBuilder(
-      column: $table.category, builder: (column) => ColumnFilters(column));
+    column: $table.category,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnFilters(column));
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnFilters(column));
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get iconName => $composableBuilder(
-      column: $table.iconName, builder: (column) => ColumnFilters(column));
+    column: $table.iconName,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get menuId => $composableBuilder(
-      column: $table.menuId, builder: (column) => ColumnFilters(column));
+    column: $table.menuId,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnFilters(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$CafeteriaItemsTableOrderingComposer
@@ -2661,25 +3218,39 @@ class $$CafeteriaItemsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get category => $composableBuilder(
-      column: $table.category, builder: (column) => ColumnOrderings(column));
+    column: $table.category,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnOrderings(column));
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnOrderings(column));
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get iconName => $composableBuilder(
-      column: $table.iconName, builder: (column) => ColumnOrderings(column));
+    column: $table.iconName,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get menuId => $composableBuilder(
-      column: $table.menuId, builder: (column) => ColumnOrderings(column));
+    column: $table.menuId,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get cachedAt => $composableBuilder(
-      column: $table.cachedAt, builder: (column) => ColumnOrderings(column));
+    column: $table.cachedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$CafeteriaItemsTableAnnotationComposer
@@ -2701,7 +3272,9 @@ class $$CafeteriaItemsTableAnnotationComposer
       $composableBuilder(column: $table.name, builder: (column) => column);
 
   GeneratedColumn<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => column);
+    column: $table.description,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get iconName =>
       $composableBuilder(column: $table.iconName, builder: (column) => column);
@@ -2713,24 +3286,29 @@ class $$CafeteriaItemsTableAnnotationComposer
       $composableBuilder(column: $table.cachedAt, builder: (column) => column);
 }
 
-class $$CafeteriaItemsTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $CafeteriaItemsTable,
-    CafeteriaItem,
-    $$CafeteriaItemsTableFilterComposer,
-    $$CafeteriaItemsTableOrderingComposer,
-    $$CafeteriaItemsTableAnnotationComposer,
-    $$CafeteriaItemsTableCreateCompanionBuilder,
-    $$CafeteriaItemsTableUpdateCompanionBuilder,
-    (
-      CafeteriaItem,
-      BaseReferences<_$AppDatabase, $CafeteriaItemsTable, CafeteriaItem>
-    ),
-    CafeteriaItem,
-    PrefetchHooks Function()> {
+class $$CafeteriaItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CafeteriaItemsTable,
+          CafeteriaItem,
+          $$CafeteriaItemsTableFilterComposer,
+          $$CafeteriaItemsTableOrderingComposer,
+          $$CafeteriaItemsTableAnnotationComposer,
+          $$CafeteriaItemsTableCreateCompanionBuilder,
+          $$CafeteriaItemsTableUpdateCompanionBuilder,
+          (
+            CafeteriaItem,
+            BaseReferences<_$AppDatabase, $CafeteriaItemsTable, CafeteriaItem>,
+          ),
+          CafeteriaItem,
+          PrefetchHooks Function()
+        > {
   $$CafeteriaItemsTableTableManager(
-      _$AppDatabase db, $CafeteriaItemsTable table)
-      : super(TableManagerState(
+    _$AppDatabase db,
+    $CafeteriaItemsTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -2739,64 +3317,67 @@ class $$CafeteriaItemsTableTableManager extends RootTableManager<
               $$CafeteriaItemsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$CafeteriaItemsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> category = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<String> description = const Value.absent(),
-            Value<String> iconName = const Value.absent(),
-            Value<int> menuId = const Value.absent(),
-            Value<DateTime> cachedAt = const Value.absent(),
-          }) =>
-              CafeteriaItemsCompanion(
-            id: id,
-            category: category,
-            name: name,
-            description: description,
-            iconName: iconName,
-            menuId: menuId,
-            cachedAt: cachedAt,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int category,
-            required String name,
-            required String description,
-            required String iconName,
-            required int menuId,
-            required DateTime cachedAt,
-          }) =>
-              CafeteriaItemsCompanion.insert(
-            id: id,
-            category: category,
-            name: name,
-            description: description,
-            iconName: iconName,
-            menuId: menuId,
-            cachedAt: cachedAt,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> category = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<String> iconName = const Value.absent(),
+                Value<int> menuId = const Value.absent(),
+                Value<DateTime> cachedAt = const Value.absent(),
+              }) => CafeteriaItemsCompanion(
+                id: id,
+                category: category,
+                name: name,
+                description: description,
+                iconName: iconName,
+                menuId: menuId,
+                cachedAt: cachedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int category,
+                required String name,
+                required String description,
+                required String iconName,
+                required int menuId,
+                required DateTime cachedAt,
+              }) => CafeteriaItemsCompanion.insert(
+                id: id,
+                category: category,
+                name: name,
+                description: description,
+                iconName: iconName,
+                menuId: menuId,
+                cachedAt: cachedAt,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$CafeteriaItemsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $CafeteriaItemsTable,
-    CafeteriaItem,
-    $$CafeteriaItemsTableFilterComposer,
-    $$CafeteriaItemsTableOrderingComposer,
-    $$CafeteriaItemsTableAnnotationComposer,
-    $$CafeteriaItemsTableCreateCompanionBuilder,
-    $$CafeteriaItemsTableUpdateCompanionBuilder,
-    (
+typedef $$CafeteriaItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CafeteriaItemsTable,
       CafeteriaItem,
-      BaseReferences<_$AppDatabase, $CafeteriaItemsTable, CafeteriaItem>
-    ),
-    CafeteriaItem,
-    PrefetchHooks Function()>;
+      $$CafeteriaItemsTableFilterComposer,
+      $$CafeteriaItemsTableOrderingComposer,
+      $$CafeteriaItemsTableAnnotationComposer,
+      $$CafeteriaItemsTableCreateCompanionBuilder,
+      $$CafeteriaItemsTableUpdateCompanionBuilder,
+      (
+        CafeteriaItem,
+        BaseReferences<_$AppDatabase, $CafeteriaItemsTable, CafeteriaItem>,
+      ),
+      CafeteriaItem,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;

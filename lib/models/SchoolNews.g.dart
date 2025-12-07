@@ -7,16 +7,16 @@ part of 'SchoolNews.dart';
 // **************************************************************************
 
 SchoolNews _$SchoolNewsFromJson(Map<String, dynamic> json) => SchoolNews(
-      id: (json['id'] as num).toInt(),
-      headline: json['headline'] as String?,
-      content: json['content'] as String?,
-      datePublished: DateTime.parse(json['datePublished'] as String),
-      author: json['author'] as String?,
-      schoolId: (json['schoolId'] as num).toInt(),
-      school: json['school'] == null
-          ? null
-          : School.fromJson(json['school'] as Map<String, dynamic>),
-    );
+  id: (json['id'] as num).toInt(),
+  headline: json['headline'] as String?,
+  content: json['content'] as String?,
+  datePublished: DateTime.parse(json['datePublished'] as String),
+  author: json['author'] as String?,
+  schoolId: (json['schoolId'] as num).toInt(),
+  school: json['school'] == null
+      ? null
+      : School.fromJson(json['school'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$SchoolNewsToJson(SchoolNews instance) =>
     <String, dynamic>{

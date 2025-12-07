@@ -1,15 +1,17 @@
 import '../database/database.dart';
 import '../models/CafeteriaItem.dart' as model;
 import '../models/CafeteriaMenu.dart';
-import 'api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/api_service_provider.dart';
+import 'api_service.dart';
 
 class CachedCafeteriaService {
   final AppDatabase _database;
-  final _apiService = ApiClient().apiService;
+  final ApiService _apiService;
 
   static const cacheDuration = Duration(hours: 1);
 
-  CachedCafeteriaService(this._database);
+  CachedCafeteriaService(this._apiService, this._database);
 
   // Stream of cafeteria items from database
   Stream<List<model.CafeteriaItem>> watchCafeteriaItems() {

@@ -1,14 +1,16 @@
 import '../database/database.dart';
 import '../models/School.dart';
-import 'api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/api_service_provider.dart';
+import 'api_service.dart';
 
 class CachedSchoolService {
+  final ApiService _apiService;
   final AppDatabase _database;
-  final _apiService = ApiClient().apiService;
 
   static const cacheDuration = Duration(hours: 1);
 
-  CachedSchoolService(this._database);
+  CachedSchoolService(this._apiService, this._database);
 
   // Stream of school from database
   Stream<School?> watchSchool() {

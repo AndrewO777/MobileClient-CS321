@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../database/database_provider.dart';
 import '../models/SchoolNews.dart';
+import '../providers/api_service_provider.dart';
 import '../services/cached_news_service.dart';
 import '../database/database.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewsPage extends StatefulWidget {
+class NewsPage extends ConsumerStatefulWidget {
   const NewsPage({Key? key}) : super(key: key);
 
   @override
-  _NewsPageState createState() => _NewsPageState();
+  ConsumerState<NewsPage> createState() => _NewsPageState();
 }
 
-class _NewsPageState extends State<NewsPage> {
+class _NewsPageState extends ConsumerState<NewsPage> {
   late final CachedNewsService _newsService;
   //late final AppDatabase _database;
   bool _isRefreshing = false;
@@ -21,7 +23,8 @@ class _NewsPageState extends State<NewsPage> {
   void initState() {
     super.initState();
     final database = DatabaseProvider.instance;
-    _newsService = CachedNewsService(database);
+    final apiService = ref.read(apiServiceProvider);
+    _newsService = CachedNewsService(apiService, database);
     _loadInitialData();
   }
 

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import '../database/database_provider.dart';
 import '../models/CafeteriaItem.dart' as model;
+import '../providers/api_service_provider.dart';
 import '../services/cached_cafeteria_service.dart';
 import '../database/database.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CafeteriaPage extends StatefulWidget {
+class CafeteriaPage extends ConsumerStatefulWidget {
   const CafeteriaPage({Key? key}) : super(key: key);
 
   @override
-  _CafeteriaPageState createState() => _CafeteriaPageState();
+  ConsumerState<CafeteriaPage> createState() => _CafeteriaPageState();
 }
 
-class _CafeteriaPageState extends State<CafeteriaPage> {
+class _CafeteriaPageState extends ConsumerState<CafeteriaPage> {
   late final CachedCafeteriaService _cafeteriaService;
   //late final AppDatabase _database;
   bool _isRefreshing = false;
@@ -20,7 +22,8 @@ class _CafeteriaPageState extends State<CafeteriaPage> {
   void initState() {
     super.initState();
     final database = DatabaseProvider.instance;
-    _cafeteriaService = CachedCafeteriaService(database);
+    final apiService = ref.read(apiServiceProvider);
+    _cafeteriaService = CachedCafeteriaService(apiService, database);
     _loadInitialData();
   }
 

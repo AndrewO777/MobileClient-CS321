@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'about_service.dart';
 
@@ -20,11 +21,7 @@ final class _$AboutService extends AboutService {
   @override
   Future<Response<Map<String, dynamic>>> getAboutData() {
     final Uri $url = Uri.parse('/about');
-    final Request $request = Request(
-      'GET',
-      $url,
-      client.baseUrl,
-    );
+    final Request $request = Request('GET', $url, client.baseUrl);
     return client.send<Map<String, dynamic>, Map<String, dynamic>>($request);
   }
 }

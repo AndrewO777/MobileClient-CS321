@@ -1,24 +1,26 @@
-import 'api_service.dart';
+import '../providers/api_service_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:chopper/chopper.dart';
 
+import 'api_service.dart';
+
+/// API Client that creates ApiService instances with authentication support
 class ApiClient {
-  static final ApiClient _instance = ApiClient._internal();
+  final Ref ref;
   late final ApiService apiService;
 
-  factory ApiClient() {
-    return _instance;
-  }
-
-  ApiClient._internal() {
-    apiService = ApiService.create();
+  ApiClient(this.ref) {
+    apiService = ref.read(apiServiceProvider);
   }
 }
 
-/// Global Riverpod provider that exposes the shared ChopperClient
-final apiClientProvider = Provider<ChopperClient>((ref) {
-  // Access your singleton
-  final apiClient = ApiClient();
-  // Return the internal Chopper client from ApiService
+/// Provider that creates ApiClient with auth support
+final apiClientProvider = Provider<ApiClient>((ref) {
+  return ApiClient(ref);
+});
+
+/// Provider that exposes the ChopperClient
+final chopperClientProvider = Provider<ChopperClient>((ref) {
+  final apiClient = ref.watch(apiClientProvider);
   return apiClient.apiService.client;
 });
