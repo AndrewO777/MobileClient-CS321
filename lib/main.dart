@@ -9,6 +9,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 
 import 'providers/oauth/auth_router.dart';
+import 'widgets/prominent_notification.dart';
 
 // Background message handler - MUST be a top-level function
 @pragma('vm:entry-point')
@@ -60,6 +61,8 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
+  RemoteMessage? _lastMessage;  // Store the last message for routing
+
   @override
   void initState() {
     super.initState();
@@ -90,6 +93,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         print('Title: ${message.notification!.title}');
         print('Body: ${message.notification!.body}');
 
+        _lastMessage = message;  // Store for routing
         _showNotificationSnack(
           message.notification!.title ?? 'Notification',
           message.notification!.body ?? '',
@@ -120,22 +124,30 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   void _showNotificationSnack(String title, String body) {
-    // Use the auth-aware router's navigator key to get a context
-    final router = ref.read(authRouterProvider);
-    final context = router.routerDelegate.navigatorKey.currentContext;
+    // Use the root navigator key which has overlay access
+    final context = rootNavigatorKey.currentContext;
 
     if (context != null && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('$title: $body'),
-          duration: const Duration(seconds: 3),
-          action: SnackBarAction(
-            label: 'View',
-            onPressed: () {
-              // TODO: navigate somewhere based on notification if needed
-            },
-          ),
-        ),
+      // Get the router for navigation
+      final router = ref.read(authRouterProvider);
+
+      ProminentNotification.show(
+        context,
+        title: title,
+        body: body,
+        icon: Icons.notifications_active,
+        duration: const Duration(seconds: 5),
+        onTap: () {
+          print('Notification tapped: $title');
+
+          // Use the message data to navigate intelligently
+          if (_lastMessage != null) {
+            _handleNotificationTap(_lastMessage!);
+          } else {
+            // Default: go to home
+            router.go('/');
+          }
+        },
       );
     } else {
       print('📬 Notification: $title - $body');
@@ -143,21 +155,41 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   void _handleNotificationTap(RemoteMessage message) {
-    // Example: route-based navigation using data payload
+    // Route-based navigation using data payload
     final router = ref.read(authRouterProvider);
 
+    // Check if there's routing data in the message
     if (message.data.containsKey('route')) {
       final route = message.data['route'] as String;
       print('📍 Navigating to: $route');
 
-      // Example: you could define routes like '/events', '/news', etc.
+      // Navigate to the specified route
       router.go(route);
 
-      // If you also pass an 'id' in data, you can handle it here
+      // Handle additional parameters like IDs
       // if (message.data.containsKey('id')) {
       //   final id = message.data['id'];
       //   router.go('/$route/$id');
       // }
+    } else {
+      // Default routing based on notification content or type
+      // You can add smart routing based on keywords in title/body
+      final title = message.notification?.title?.toLowerCase() ?? '';
+
+      if (title.contains('event')) {
+        print('📍 Navigating to events');
+        router.go('/events');
+      } else if (title.contains('news')) {
+        print('📍 Navigating to news');
+        router.go('/news');
+      } else if (title.contains('cafeteria') || title.contains('menu')) {
+        print('📍 Navigating to cafeteria');
+        router.go('/cafeteria');
+      } else {
+        // Default: go to home
+        print('📍 Navigating to home');
+        router.go('/');
+      }
     }
   }
 

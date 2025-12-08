@@ -13,10 +13,14 @@ import '../../pages/about_page.dart';
 import '../../widgets/main_scaffold.dart';
 import 'auth_controller_provider.dart';
 
+// Global navigator key for overlay access
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+
 final authRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authControllerProvider);
 
   return GoRouter(
+    navigatorKey: rootNavigatorKey,
     initialLocation: '/splash',
     debugLogDiagnostics: true,
 
@@ -62,12 +66,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
             name: 'about',
             builder: (context, state) => const AboutPage(),
           ),
-          // Announcements route if we want it
-          // GoRoute(
-          //   path: '/announcements',
-          //   name: 'announcements',
-          //   builder: (context, state) => const HomePage(),
-          // ),
         ],
       ),
     ],
