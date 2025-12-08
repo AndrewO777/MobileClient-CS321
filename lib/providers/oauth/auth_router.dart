@@ -16,6 +16,35 @@ import 'auth_controller_provider.dart';
 // Global navigator key for overlay access
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 
+/// Reusable fade + slight slide transition for all authenticated pages
+CustomTransitionPage<void> _buildFadeSlidePage(
+    Widget child,
+    GoRouterState state,
+    ) {
+  return CustomTransitionPage<void>(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 250),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final curved = CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeInOut,
+      );
+
+      return FadeTransition(
+        opacity: curved,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 0.03), // tiny upward slide
+            end: Offset.zero,
+          ).animate(curved),
+          child: child,
+        ),
+      );
+    },
+  );
+}
+
 final authRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authControllerProvider);
 
@@ -44,27 +73,32 @@ final authRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/',
             name: 'home',
-            builder: (context, state) => const HomePage(),
+            pageBuilder: (context, state) =>
+                _buildFadeSlidePage(const HomePage(), state),
           ),
           GoRoute(
             path: '/news',
             name: 'news',
-            builder: (context, state) => const NewsPage(),
+            pageBuilder: (context, state) =>
+                _buildFadeSlidePage(const NewsPage(), state),
           ),
           GoRoute(
             path: '/events',
             name: 'events',
-            builder: (context, state) => const EventsPage(),
+            pageBuilder: (context, state) =>
+                _buildFadeSlidePage(const EventsPage(), state),
           ),
           GoRoute(
             path: '/cafeteria',
             name: 'cafeteria',
-            builder: (context, state) => const CafeteriaPage(),
+            pageBuilder: (context, state) =>
+                _buildFadeSlidePage(const CafeteriaPage(), state),
           ),
           GoRoute(
             path: '/about',
             name: 'about',
-            builder: (context, state) => const AboutPage(),
+            pageBuilder: (context, state) =>
+                _buildFadeSlidePage(const AboutPage(), state),
           ),
         ],
       ),
@@ -94,8 +128,12 @@ final authRouterProvider = Provider<GoRouter>((ref) {
         if (isLoggingIn) return null;
 
         // For protected routes, send to login and remember where we came from
-        final from = state.matchedLocation;
-        return '/login?from=$from';
+        if (isProtected) {
+          final from = state.matchedLocation;
+          return '/login?from=$from';
+        }
+
+        return null;
       }
 
       // Authenticated

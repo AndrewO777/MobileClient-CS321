@@ -58,10 +58,16 @@ class _HomePageState extends ConsumerState<HomePage> {
           return StreamBuilder<List<Announcement>>(
             stream: _announcementService.watchAnnouncements(),
             builder: (context, announcementSnapshot) {
+              // Show loading only if waiting AND no cached data
+              final hasSchoolData = schoolSnapshot.hasData && schoolSnapshot.data != null;
+              final hasAnnouncementData = announcementSnapshot.hasData &&
+                  announcementSnapshot.data != null &&
+                  announcementSnapshot.data!.isNotEmpty;
+
               if (schoolSnapshot.connectionState == ConnectionState.waiting &&
-                  !schoolSnapshot.hasData &&
+                  !hasSchoolData &&
                   announcementSnapshot.connectionState == ConnectionState.waiting &&
-                  !announcementSnapshot.hasData) {
+                  !hasAnnouncementData) {
                 return const Center(child: CircularProgressIndicator());
               }
 

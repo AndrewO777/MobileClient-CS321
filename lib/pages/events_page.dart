@@ -86,7 +86,7 @@ class _EventsPageState extends ConsumerState<EventsPage> {
             stream: _eventService.watchEvents(),          // 👈 uses the new field
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting &&
-                  !snapshot.hasData) {
+                  (!snapshot.hasData || snapshot.data!.isEmpty)) {
                 return const Center(child: CircularProgressIndicator());
               }
 
@@ -124,7 +124,7 @@ class _EventsPageState extends ConsumerState<EventsPage> {
 
               final events = snapshot.data ?? [];
 
-              if (events.isEmpty) {
+              if (events.isEmpty && snapshot.connectionState != ConnectionState.waiting) {
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -44,7 +44,9 @@ class _NewsPageState extends ConsumerState<NewsPage> {
       body: StreamBuilder<List<SchoolNews>>(
         stream: _newsService.watchNews(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData) {
+          // Only show loading spinner if we're waiting AND have no cached data at all
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              (!snapshot.hasData || snapshot.data!.isEmpty)) {
             return const Center(child: CircularProgressIndicator());
           }
 
@@ -81,7 +83,8 @@ class _NewsPageState extends ConsumerState<NewsPage> {
 
           final newsList = snapshot.data ?? [];
 
-          if (newsList.isEmpty) {
+          // Only show "no data" state if we're NOT loading and truly have no data
+          if (newsList.isEmpty && snapshot.connectionState != ConnectionState.waiting) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
